@@ -479,9 +479,22 @@ def pick_bgm(fmt: str, explicit: str | None, script_id: str) -> Path | None:
     return files[int(hashlib.md5(script_id.encode()).hexdigest(), 16) % len(files)]
 
 
-def mux(concat_list: Path, narration: Path, bgm: Path | None, total: float, out: Path) -> None:
+NARRATION_LUFS = {"regular": -16.0, "sleep": -20.0}
+
+
+def measure_lufs(path: Path) -> float | None:
+    r = subprocess.run([FFMPEG, "-hide_banner", "-nostats", "-i", str(path), "-af", "ebur128", "-f", "null", "-"],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    m = re.findall(r"I:\s+(-?[\d.]+) LUFS", r.stderr)
+    return float(m[-1]) if m else None
+
+
+def mux(concat_list: Path, narration: Path, bgm: Path | None, total: float, out: Path, fmt: str) -> None:
     cmd = [FFMPEG, "-hide_banner", "-y", "-f", "concat", "-safe", "0", "-i", str(concat_list), "-i", str(narration)]
-    narr = "[1:a]aresample=48000,aformat=sample_fmts=fltp:channel_layouts=stereo"
+    # ナレーションを目標ラウドネスに合わせる（YouTube は -14LUFS 基準。小さすぎる音は持ち上げてくれない）
+    lufs = measure_lufs(narration)
+    gain = 0.0 if lufs is None or lufs < -70 else max(-20.0, min(20.0, NARRATION_LUFS[fmt] - lufs))
+    narr = f"[1:a]volume={gain:.2f}dB,aresample=48000,aformat=sample_fmts=fltp:channel_layouts=stereo"
     if bgm:
         cmd += ["-stream_loop", "-1", "-i", str(bgm)]
         fo = max(total - 4, 0)
@@ -655,7 +668,7 @@ def main(argv=None) -> int:
     log(f"  BGM: {bgm.name if bgm else 'なし（pipeline/bgm/ に mp3 を置くと自動で使います）'}")
     mp4 = out_dir / f"{sid}.mp4"
     log("  結合・ミックス中…")
-    mux(concat_list, narration, bgm, total, mp4)
+    mux(concat_list, narration, bgm, total, mp4, fmt)
 
     # 5) 字幕・概要欄
     srt = out_dir / f"{sid}.srt"
