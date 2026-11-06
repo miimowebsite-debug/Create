@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<title>C 富</title>
+<defs>
+  <radialGradient id="bg" cx="50%" cy="46%" r="62%">
+    <stop offset="0" stop-color="#1E3A70"/><stop offset=".55" stop-color="#0F2147"/><stop offset="1" stop-color="#060E22"/>
+  </radialGradient>
+  <linearGradient id="gold" x1="0" y1="0" x2="0.35" y2="1">
+    <stop offset="0" stop-color="#FFF4C8"/><stop offset=".28" stop-color="#F2CF72"/>
+    <stop offset=".55" stop-color="#D6A23E"/><stop offset=".78" stop-color="#F5D98A"/><stop offset="1" stop-color="#A9761F"/>
+  </linearGradient>
+  <linearGradient id="goldFlat" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#F6DC92"/><stop offset="1" stop-color="#C9963A"/>
+  </linearGradient>
+  <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+    <stop offset="0" stop-color="#FFE7A0" stop-opacity=".55"/><stop offset=".45" stop-color="#E9B64F" stop-opacity=".18"/>
+    <stop offset="1" stop-color="#E9B64F" stop-opacity="0"/>
+  </radialGradient>
+  <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+    <feGaussianBlur stdDeviation="10" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+  </filter>
+  <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+    <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#000" flood-opacity=".45"/>
+  </filter></defs>
+<rect width="800" height="800" fill="url(#bg)"/>
+
+  <circle cx="400" cy="400" r="270" fill="url(#halo)"/>
+  
+  <circle cx="400" cy="400" r="300" fill="none" stroke="url(#gold)" stroke-width="16"/>
+  <circle cx="400" cy="400" r="274" fill="none" stroke="url(#goldFlat)" stroke-width="5" opacity=".85"/><polygon points="400,78 406.4,93.6 422,100 406.4,106.4 400,122 393.6,106.4 378,100 393.6,93.6" fill="url(#goldFlat)" stroke="#0F2147" stroke-width="3"/><polygon points="612.1,165.9 618.5,181.5 634.1,187.9 618.5,194.2 612.1,209.9 605.8,194.2 590.1,187.9 605.8,181.5" fill="url(#goldFlat)" stroke="#0F2147" stroke-width="3"/><polygon points="700,378 706.4,393.6 722,400 706.4,406.4 700,422 693.6,406.4 678,400 693.6,393.6" fill="url(#goldFlat)" stroke="#0F2147" stroke-width="3"/><polygon points="612.1,590.1 618.5,605.8 634.1,612.1 618.5,618.5 612.1,634.1 605.8,618.5 590.1,612.1 605.8,605.8" fill="url(#goldFlat)" stroke="#0F2147" stroke-width="3"/><polygon points="400,678 406.4,693.6 422,700 406.4,706.4 400,722 393.6,706.4 378,700 393.6,693.6" fill="url(#goldFlat)" stroke="#0F2147" stroke-width="3"/><polygon points="187.9,590.1 194.2,605.8 209.9,612.1 194.2,618.5 187.9,634.1 181.5,618.5 165.9,612.1 181.5,605.8" fill="url(#goldFlat)" stroke="#0F2147" stroke-width="3"/><polygon points="100,378 106.4,393.6 122,400 106.4,406.4 100,422 93.6,406.4 78,400 93.6,393.6" fill="url(#goldFlat)" stroke="#0F2147" stroke-width="3"/><polygon points="187.9,165.9 194.2,181.5 209.9,187.9 194.2,194.2 187.9,209.9 181.5,194.2 165.9,187.9 181.5,181.5" fill="url(#goldFlat)" stroke="#0F2147" stroke-width="3"/>
+  <g filter="url(#shadow)">
+    <path d="M298 387L692 387L692 359L298 359ZM206 624L615 624L677 699Q677 699 696.5 685Q716 671 743 650.5Q770 630 791 612Q788 596 764 596L214 596ZM230 519L230 574L230 574L376 519L680 519L680 491L370 491L370 349Q370 343 351.5 333.5Q333 324 305.5 316Q278 308 249 308L230 308ZM641 519L631 519L692 584L819 491Q815 486 806 480Q797 474 783 471L783 354Q783 351 762.5 344Q742 337 715 331Q688 325 666 325L641 325ZM227 141L769 141L769 113L227 113ZM227 7L769 7L769 -21L227 -21ZM143 273L143 331L143 331L294 273L757 273L757 245L285 245L285 -52Q285 -58 267 -68.5Q249 -79 221 -87.5Q193 -96 163 -96L143 -96ZM719 273L709 273L771 342L901 244Q897 238 887 232Q877 226 861 222L861 -54Q861 -57 841 -64.5Q821 -72 793.5 -78.5Q766 -85 743 -85L719 -85ZM427 273L567 273L567 -9L427 -9ZM160 741L860 741L860 713L160 713ZM423 856L609 843Q608 833 601 825.5Q594 818 573 814L573 721L423 721ZM167 813L179 813Q203 754 203.5 707Q204 660 188.5 627.5Q173 595 147 579Q130 569 108 569.5Q86 570 68 582Q50 594 42 616Q33 647 48.5 670.5Q64 694 91 706Q108 715 125.5 731Q143 747 155 768.5Q167 790 167 813ZM796 741L785 741L853 810L971 698Q965 691 956.5 689Q948 687 932 685Q904 662 863 635.5Q822 609 785 592L778 598Q782 619 785.5 645Q789 671 792 696.5Q795 722 796 741Z" transform="translate(213.2 546.6) scale(0.37 -0.37)" fill="url(#gold)" stroke="#8A5F1C" stroke-width="27" paint-order="stroke"/>
+  </g>
+</svg>
