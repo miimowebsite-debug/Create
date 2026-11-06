@@ -5,20 +5,25 @@
   - 注意: この作業環境では WebFetch が boj.or.jp / berkshirehathaway.com に接続できなかった（ネットワーク許可外）。
     日銀ページの記載内容は検索結果の引用で確認した。公開前に人の目で各URLを開いて最終確認すること。
 
-## ep001（通常回）の数字と出典
+## ep001（通常回・第3稿 離脱対策版）の数字と出典
+
+確認日はすべて 2026-11-06。第1稿の数字（お札の寿命・硬貨20枚・損失回避・宝くじ5割・コストコ）はそのまま引き継いだ。
+スピリチュアル系（03・06・08）は「その言い伝え・逸話が存在すること」を出典で確認したもので、効果は確認していない（台本でも断定していない）。
 
 | # | 見出し | 台本で使った数字・主張 | 出典 | 判定 |
 |---|---|---|---|---|
-| 01 | 1万円札の寿命 | 一万円券 4〜5年程度、五千円券・千円券 1〜2年程度 | 日本銀行「お札の寿命はどれくらいですか？」 https://www.boj.or.jp/about/education/oshiete/money/c10.htm | 確認済（公式） |
-| 02 | 硬貨は20枚まで | 貨幣は額面価格の20倍までを限り法貨として通用（第7条） | 通貨の単位及び貨幣の発行等に関する法律 https://hourei.net/law/362AC0000000042 / 衆議院 制定時法律 https://www.shugiin.go.jp/internet/itdb_housei.nsf/html/houritsu/10819870601042.htm | 確認済（法令） |
-| 03 | 世界最古の紙幣 | 11世紀 北宋・四川、商人組合の預り証が起源、のち政府発行 | 世界史用語解説 https://y-history.net/appendix/wh0303-066.html | 確認済。政府発行の開始年は資料で1023年/1024年と揺れるため、台本では年を言っていない |
-| 04 | 損失回避 | 1992年の論文で損失回避係数 約2.25 | Tversky & Kahneman (1992) JRU 5:297-323 https://psych.fullerton.edu/mbirnbaum/psych466/articles/Tversky_Kahneman_JRU_92.pdf / https://ideas.repec.org/a/kap/jrisku/v5y1992i4p297-323.html | 確認済（学術） |
-| 05 | 宝くじの還元率 | 当せん金は発売総額の5割以下（当せん金付証票法 第5条）。実際は4割台後半 | 総務省資料 https://www.soumu.go.jp/main_content/000588130.pdf / みずほ銀行 宝くじの仕組み https://www.mizuhobank.co.jp/takarakuji/guide/structure/index.html | 確認済。「約46%」という単一の数字は年度で46.5〜46.9%と揺れるため使わず「4割台後半」とした |
-| 06 | 替刃モデルは俗説 | ジレットは特許有効期間（1904〜1921年）に本体安売りをしていなかった | Picker, The Razors-and-Blades Myth(s), 78 U. Chi. L. Rev. 225 (2011) https://lawreview.uchicago.edu/sites/default/files/78-1-Razors-and-Blades%20Myth%28s%29-Picker.pdf | 確認済（学術） |
-| 07 | コストコの会費 | 2024年度 会費収入 約48億ドル（4,828百万ドル）、純利益 約74億ドル（7,367百万ドル）、米加の更新率 92.9% | Costco 10-K FY2024 https://www.sec.gov/Archives/edgar/data/909832/000090983224000049/cost-20240901.htm / 決算発表 https://investor.costco.com/news/news-details/2024/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2024-Operating-Results/default.aspx | 確認済（一次資料）。台本は「92パーセントを超えて」と表現 |
-| 08 | ふるさと納税 | 2023年度 受入額 約1兆1,175億円、前年度比 約1.2倍、初の1兆円超え、制度開始2008年 | 総務大臣会見 2024年8月2日 https://www.soumu.go.jp/menu_news/kaiken/01koho01_02001367.html / 総務省 ふるさと納税 https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/archive/other_archives.html | 確認済（公式）。2024年度以降の数字は今回未確認のため使っていない |
-| 09 | 72の法則 | 72÷年利＝2倍になるおおよその年数（例: 3%→24年、10年→7.2%） | 野村證券 https://www.nomura.co.jp/fin-wing/column/rule-of-72/ | 確認済（数学的近似。台本で「近似」と明示） |
-| 10 | バフェットの家 | 1958年に3万1,500ドルで購入。株主への手紙で家族の思い出に言及、「3番目に良い投資」 | Bloomberg 2011-02-28 https://www.bloomberg.com/news/articles/2011-02-28/buffett-says-buying-his-home-for-31-500-was-third-best-investment-he-made / Fortune 2023-08-30 https://fortune.com/2023/08/30/warren-buffett-93-birthday-bought-house-omaha-nebraska-31500-best-investment | 確認済（報道）。一次資料のバークシャー2010年度株主書簡は環境から開けず未照合。家の広さ・築年は資料で食い違うため使っていない |
+| 01 | 1万円札の寿命は何年？ | 一万円券 4〜5年程度、五千円券・千円券 1〜2年程度 | 日本銀行 https://www.boj.or.jp/about/education/oshiete/money/c10.htm | 確認済（公式） |
+| 02 | 硬貨21枚は断れる | 貨幣は額面価格の20倍までを限り法貨として通用（第7条） | https://hourei.net/law/362AC0000000042 / 衆議院 制定時法律 | 確認済（法令） |
+| 03 | 春財布は張る財布 | 春財布＝張る財布、秋財布＝空き財布、秋を「実り財布」とする説もある（言い伝え）。区切りの日に新しい行動を始めやすい（フレッシュスタート効果） | 小学館HugKum https://hugkum.sho.jp/335241 / All About https://allabout.co.jp/gm/gc/521011/ / Dai, Milkman & Riis (2014) Management Science 60(10) https://doi.org/10.1287/mnsc.2014.1901 | 言い伝えの存在を確認。効果は「根拠はありません」と明言 |
+| 04 | 宝くじ7割破産は出典なし | 当せん金は発売総額の5割以下、実際は4割台後半。「当せん者の7割が破産」は NEFE が2018年に自団体の研究ではないと否定。フロリダの研究では破産は6%未満（台本は「1割に届かない」）。2008年の研究で、ボーナスのうち他人に使った割合が幸福度を予測 | 総務省資料 https://www.soumu.go.jp/main_content/000588130.pdf / NEFE https://www.nefe.org/news/the-latest/2018/research-statistic-on-financial-windfalls-and-bankruptcy.aspx / NZ Herald https://nzherald.co.nz/business/does-winning-the-lottery-actually-ruin-your-life/H37CMEH6ONF4NCY4Y4VWG54T6Y / Dunn, Aknin & Norton (2008) Science 319:1687 https://hbswk.hbs.edu/item/5944.html | 確認済。フロリダの研究は報道経由の確認で、原論文は未照合 |
+| 05 | 損は得の2.25倍つらい | 1992年の論文で損失回避係数 約2.25 | Tversky & Kahneman (1992) | 確認済（学術） |
+| 06 | 一粒万倍日の落とし穴 | 一粒の籾が万倍に実る、が由来。年に60日前後。天赦日は最上の吉日とされる。悪いことも万倍になるので借金は避ける、とも言われる | ベストカレンダー https://bestcalendar.jp/koyomi/ichiryumanbaibi / All Aboutニュース https://news.allabout.co.jp/articles/o/111958/ | 言い伝えの存在を確認（暦注。科学的根拠なし）。日数は数え方で揺れるため「60日前後」 |
+| 07 | コストコは会費で稼ぐ | 2024年度 会費収入 約48億ドル、純利益 約74億ドル、米加の更新率 92.9% | Costco 10-K FY2024 / 決算発表 | 確認済（一次資料） |
+| 08 | 素手でトイレを磨く創業者 | 鍵山秀三郎（イエローハット創業者）は1961年の創業期に社内トイレ掃除を始め、50年以上継続、「掃除の神様」、日本を美しくする会を発足（1993年） | 東洋経済オンライン https://toyokeizai.net/articles/-/54721 / 現代ビジネス https://gendai.media/articles/-/1753 | 確認済（報道）。「トイレ掃除で金運が上がると実践する経営者も多い」は通説として「と言われます」で表現 |
+| 09 | ニュートン株で大損 | 1720年の南海会社株。早めに売って利益→さらに上昇→高値で買い戻し→崩壊で財産の大きな部分を失ったとみられる。「天体の動きは計算できても〜」の名言は出典未確認 | Odlyzko, Physics Today https://physicstoday.aip.org/features/isaac-newton-and-the-perils-of-the-financial-south-sea / Odlyzko 論文 https://www-users.cse.umn.edu/~odlyzko/doc/mania13c.pdf | 確認済（学術）。損失額は推定が揺れるため数字は使っていない |
+| 10 | バフェット最大の失敗 | 1960年代に傾いた繊維会社の株を買い集め、売値の約束の食い違いに腹を立てて買収（本人の説明）。2010年に「2000億ドルの失敗」と発言。その会社がバークシャー・ハサウェイ | CNBC 2010-10-18 https://www.cnbc.com/2010/10/18/warren-buffett-buying-berkshire-hathaway-was-200-billion-blunder.html / CNBC 書き起こし https://www.cnbc.com/id/39724884 | 確認済（本人インタビュー）。買い始めの年は1962年説と1964年説があるため「1960年代」とした |
+
+第1稿にあった世界最古の紙幣、替刃モデル、ふるさと納税、72の法則、バフェットの家は第3稿から外した（替刃モデルは次回予告に回した）。確認内容は下の睡眠回・旧版の記録と同じ。
 
 ## ep001_sleep（睡眠用）で使った主な数字
 
@@ -53,6 +58,10 @@
 
 | ネタ | 理由 | 対応 |
 |---|---|---|
+| 宝くじ高額当せん者の7割が破産する | 出どころとされた NEFE が2018年に否定 | ep001 第3稿で「出典なし」として使用 |
+| 松下幸之助のトイレ掃除の逸話 | 今回の検索で確かな出典を確認できず | 不使用。出典のある鍵山秀三郎の話に差し替え |
+| 黄色い財布で金運が上がる | 「西に黄色」は Dr.コパの著書（1999年）で確認できたが、黄色い財布が広まった経緯は確認できず | 不使用 |
+| ニュートンの損失額（2万ポンド等） | 推定が資料で揺れる | 金額は使わない |
 | 1万円札の製造コストは約20円 | 国立印刷局・財務省の公式な単価公表が見つからない | 不使用 |
 | 宝くじの還元率「約46%」 | 年度で数字が変わり、2023年度の当せん金割合を一次資料で確定できず | 「5割以下（法律）・4割台後半」に変更 |
 | 古代ローマ兵は塩で給料をもらった（サラリーの語源） | 一次史料の裏付けが乏しい | topics には「実は不確か」の切り口で収録、台本には不使用 |

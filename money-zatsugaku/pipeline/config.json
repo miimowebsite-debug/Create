@@ -23,8 +23,9 @@
 
   "bgm": {
     "gain_db": -25.0,
+    "loop_crossfade": 1.5,
     "regular": "bgm/candidates/R1_*.mp3",
-    "sleep": "bgm/candidates/S1_*.mp3"
+    "sleep": "bgm/candidates/S2_*.mp3"
   },
 
   "bgm_credits": {

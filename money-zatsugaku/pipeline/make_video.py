@@ -27,21 +27,17 @@ PIPELINE_DIR = Path(__file__).resolve().parent
 ROOT = PIPELINE_DIR.parent
 sys.path.insert(0, str(PIPELINE_DIR))
 
-from tts import DEFAULT_SPEAKER, DEFAULT_STYLE, SAMPLE_RATE, TTSError, make_tts, wav_duration  # noqa: E402
+from tts import DEFAULT_SPEAKER, DEFAULT_STYLE, SAMPLE_RATE, TTSError, load_config, make_tts, wav_duration  # noqa: E402
 
 CHANNEL_NAME = "聞くだけでお金持ちになる雑学"
 FFMPEG = shutil.which("ffmpeg") or "/usr/bin/ffmpeg"
 FFPROBE = shutil.which("ffprobe") or "/usr/bin/ffprobe"
 W, H = 1920, 1080
 
-# フォーマットごとの「間」「演出」設定（秒）
-TIMING = {
-    "regular": dict(lead=0.3, sentence_gap=0.15, part_gap=0.45, item_gap=0.6, fade=0.25, fps=30,
-                    zoom=True, burn_subs=True),
-    "sleep": dict(lead=1.0, sentence_gap=0.5, part_gap=1.2, item_gap=3.0, fade=1.2, fps=24,
-                  zoom=False, burn_subs=False),
-}
-BGM_GAIN_DB = -25.0
+# 既定値は pipeline/config.json に1か所でまとめている
+CONFIG = load_config()
+TIMING = {k: v for k, v in CONFIG["timing"].items() if not k.startswith("$")}  # 「間」「演出」（秒）
+BGM_GAIN_DB = float(CONFIG["bgm"].get("gain_db", -25.0))
 
 SUB_MAX_LINE = 26   # 1行の最大文字数
 SUB_MAX_LINES = 2
@@ -77,7 +73,7 @@ def load_script(path: Path) -> dict:
         if k not in data:
             raise SystemExit(f"台本に必須キー '{k}' がありません: {path}")
     data.setdefault("format", "regular")
-    if data["format"] not in TIMING:
+    if data["format"] not in ("regular", "sleep"):
         raise SystemExit(f"format は regular か sleep: {data['format']}")
     th = data.get("thumbnail") or {}
     if len(th.get("main", "")) > 10:
@@ -130,6 +126,7 @@ class Scene:
     chapter: str
     parts: list[list[Sentence]] = field(default_factory=list)
     image: Path | None = None
+    image_base: Path | None = None   # 見出しだけ隠した画像（見出しを素早く出す演出用）
     frames: int = 0
     start: float = 0.0        # 動画先頭からの秒
     narr_end: float = 0.0     # シーン内でナレーションが終わる秒
@@ -201,21 +198,31 @@ class Templates:
         return self._fp[d]
 
 
-def render_images(requests_: list[tuple[str, dict, Path]], tpl: Templates, cache_dir: Path) -> None:
-    """requests_ = [(template_name, data, out_png)]。キャッシュに無いものだけ Playwright で描画する。"""
+def render_images(requests_: list[tuple], tpl: Templates, cache_dir: Path) -> None:
+    """requests_ = [(template_name, data, out_png[, hide_text, out_base_png])]。
+    キャッシュに無いものだけ Playwright で描画する。hide_text があれば、その文字だけ隠した版も撮る。"""
     img_cache = cache_dir / "images"
     img_cache.mkdir(parents=True, exist_ok=True)
     jobs, links = [], []
-    for name, data, out in requests_:
+    for req in requests_:
+        name, data, out = req[:3]
+        hide, out_base = (req[3], req[4]) if len(req) > 3 else (None, None)
         w, h, var = tpl.NAMES[name]
         key = sha("img", 1, tpl.fingerprint(name), name, data, w, h)
         cached = img_cache / f"{key}.png"
         links.append((cached, out))
-        if not cached.exists() and not any(j["out"] == str(cached) for j in jobs):
-            jobs.append({"template": str(tpl.paths[name]), "varName": var, "data": data,
-                         "width": w, "height": h, "out": str(cached)})
+        job = {"template": str(tpl.paths[name]), "varName": var, "data": data,
+               "width": w, "height": h, "out": str(cached)}
+        need = not cached.exists()
+        if hide:
+            base = img_cache / f"{key}_hide.png"
+            links.append((base, out_base))
+            job.update(hideText=hide, outHidden=str(base))
+            need = need or not (base.exists() or Path(str(base) + ".none").exists())
+        if need and not any(j["out"] == str(cached) for j in jobs):
+            jobs.append(job)
     if jobs:
-        log(f"  画像を描画: {len(jobs)} 枚（キャッシュ済み {len(links) - len(jobs)} 枚）")
+        log(f"  画像を描画: {len(jobs)} 件（キャッシュ済み {len(requests_) - len(jobs)} 件）")
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False, encoding="utf-8") as f:
             json.dump(jobs, f, ensure_ascii=False)
             jf = f.name
@@ -229,11 +236,15 @@ def render_images(requests_: list[tuple[str, dict, Path]], tpl: Templates, cache
         finally:
             os.unlink(jf)
     else:
-        log(f"  画像: すべてキャッシュ済み（{len(links)} 枚）")
+        log(f"  画像: すべてキャッシュ済み（{len(requests_)} 件）")
     for cached, out in links:
-        if out is not None and cached != out:
+        if out is None or cached == out:
+            continue
+        if cached.exists():
             out.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(cached, out)
+        elif out.exists():
+            out.unlink()  # 見出しが見つからず隠し版が無い場合
 
 
 # --------------------------------------------------------------------------- 字幕
@@ -381,34 +392,54 @@ def encode_clip(sc: Scene, i: int, cfg: dict, font: str, fontsdir: Path, cache_d
     dur = n / fps
     cues = cues_for_scene(sc) if burn else []
     ass = make_ass(cues, font) if cues else ""
+    zoom = float(cfg.get("zoom") or 0)
     zoom_dir = (i % 2 == 0)
+    h_in, h_delay = float(cfg.get("heading_in") or 0), float(cfg.get("heading_delay") or 0)
+    base = sc.image_base if (h_in > 0 and sc.image_base and sc.image_base.exists()) else None
     img_hash = hashlib.sha256(sc.image.read_bytes()).hexdigest()
-    key = sha("clip", 3, img_hash, n, fps, cfg["zoom"], cfg["fade"], zoom_dir, ass, font)
+    base_hash = hashlib.sha256(base.read_bytes()).hexdigest() if base else None
+    key = sha("clip", 4, img_hash, base_hash, n, fps, zoom, cfg["fade"], h_in, h_delay, zoom_dir, ass, font)
     out = cache_dir / "clips" / f"{key}.mp4"
     if out.exists():
         return out
     out.parent.mkdir(parents=True, exist_ok=True)
+    k = min(n, int(math.ceil((h_delay + h_in) * fps)) + 2)  # 見出しを隠した画像を使うフレーム数
+
+    def src(idx: int, frames: int) -> str:
+        if zoom > 0:
+            # 2倍に拡大してから zoompan（ガタつき防止）。1→1+zoom か 1+zoom→1 のズーム（シーン全体で一定速度）
+            z = (f"1+{zoom}*on/{max(n - 1, 1)}" if zoom_dir else f"{1 + zoom}-{zoom}*on/{max(n - 1, 1)}")
+            return (f"[{idx}:v]scale={W * 2}:{H * 2}:flags=lanczos,"
+                    f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={frames}:s={W}x{H}:fps={fps}")
+        return f"[{idx}:v]scale={W}:{H},fps={fps},trim=end_frame={frames}"
+
+    if zoom > 0:
+        inputs = ["-i", str(sc.image)] + (["-i", str(base)] if base else [])
+    else:
+        inputs = ["-loop", "1", "-framerate", str(fps), "-i", str(sc.image)]
+        if base:
+            inputs += ["-loop", "1", "-framerate", str(fps), "-i", str(base)]
+    graph = src(0, n) + "[full];"
+    if base:
+        # 見出し無しの画像を上に重ね、0.3秒ほどでフェードアウト → 見出しが素早く現れる
+        graph += (src(1, k) + f",format=yuva420p,fade=t=out:st={h_delay:.3f}:d={h_in:.3f}:alpha=1[hb];"
+                  "[full][hb]overlay=eof_action=pass:format=auto[v0];")
+    else:
+        graph += "[full]null[v0];"
+    chain = "[v0]"
     with tempfile.TemporaryDirectory(dir=cache_dir) as td:
         td = Path(td)
         filters = []
-        if cfg["zoom"]:
-            # 2倍に拡大してから zoompan（ガタつき防止）。1.00→1.06 か 1.06→1.00 のゆっくりズーム
-            z = f"1+0.06*on/{max(n - 1, 1)}" if zoom_dir else f"1.06-0.06*on/{max(n - 1, 1)}"
-            filters.append(f"scale={W * 2}:{H * 2}:flags=lanczos,"
-                           f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={n}:s={W}x{H}:fps={fps}")
-            inputs = ["-i", str(sc.image)]
-        else:
-            filters.append(f"scale={W}:{H},fps={fps}")
-            inputs = ["-loop", "1", "-framerate", str(fps), "-i", str(sc.image)]
         if ass:
             (td / "s.ass").write_text(ass, encoding="utf-8")
             filters.append(f"ass=s.ass:fontsdir='{ff_escape(str(fontsdir))}'")
         f = min(cfg["fade"], dur / 4)
         filters.append(f"fade=t=in:st=0:d={f:.3f},fade=t=out:st={dur - f:.3f}:d={f:.3f},format=yuv420p")
+        graph += chain + ",".join(filters) + "[v]"
         tmp = td / "clip.mp4"
-        run([FFMPEG, "-hide_banner", "-y", *inputs, "-vf", ",".join(filters), "-frames:v", str(n),
-             "-r", str(fps), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20", "-tune", "stillimage",
-             "-g", str(fps * 4), "-pix_fmt", "yuv420p", "-an", str(tmp)], cwd=td)
+        run([FFMPEG, "-hide_banner", "-y", *inputs, "-filter_complex", graph, "-map", "[v]",
+             "-frames:v", str(n), "-r", str(fps), "-c:v", "libx264", "-preset", "veryfast", "-crf", "20",
+             "-tune", "stillimage", "-g", str(fps * 4), "-pix_fmt", "yuv420p", "-an", str(tmp)], cwd=td)
         shutil.move(str(tmp), out)
     return out
 
@@ -463,6 +494,7 @@ def write_narration(scenes: list[Scene], cfg: dict, out: Path) -> None:
 
 
 def pick_bgm(fmt: str, explicit: str | None, script_id: str) -> Path | None:
+    """--bgm（ファイル / none） > config.json の bgm.<format> > bgm/<format>/*.mp3 > bgm/*.mp3 > なし"""
     if explicit:
         if explicit.lower() == "none":
             return None
@@ -471,6 +503,12 @@ def pick_bgm(fmt: str, explicit: str | None, script_id: str) -> Path | None:
             raise SystemExit(f"BGMファイルがありません: {p}")
         return p
     d = PIPELINE_DIR / "bgm"
+    pattern = CONFIG["bgm"].get(fmt)
+    if pattern:
+        hits = sorted(PIPELINE_DIR.glob(pattern))
+        if hits:
+            return hits[0]
+        log(f"  [注意] config.json の BGM（{pattern}）が見つかりません。ほかの BGM を探します")
     files = sorted((d / fmt).glob("*.mp3")) if (d / fmt).exists() else []
     files = files or sorted(d.glob("*.mp3"))
     if not files:
@@ -478,7 +516,7 @@ def pick_bgm(fmt: str, explicit: str | None, script_id: str) -> Path | None:
     return files[int(hashlib.md5(script_id.encode()).hexdigest(), 16) % len(files)]
 
 
-NARRATION_LUFS = {"regular": -16.0, "sleep": -20.0}
+NARRATION_LUFS = {fmt: float(TIMING[fmt].get("narration_lufs", -16.0)) for fmt in TIMING}
 
 
 def measure_lufs(path: Path) -> float | None:
@@ -488,6 +526,42 @@ def measure_lufs(path: Path) -> float | None:
     return float(m[-1]) if m else None
 
 
+def media_duration(path: Path) -> float:
+    r = subprocess.run([FFPROBE, "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", str(path)],
+                       stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    return float(r.stdout.strip())
+
+
+def make_bgm_loop(bgm: Path, cache_dir: Path) -> Path:
+    """曲の終わりと頭を crossfade でつないだ「ループ1周分」の WAV を作る（-stream_loop で継ぎ目なく回せる）。"""
+    xf = float(CONFIG["bgm"].get("loop_crossfade", 1.5))
+    key = sha("bgmloop", 3, hashlib.sha256(bgm.read_bytes()).hexdigest(), xf)
+    out = cache_dir / "bgm" / f"{key}.wav"
+    if out.exists():
+        return out
+    out.parent.mkdir(parents=True, exist_ok=True)
+    d = media_duration(bgm)
+    if xf <= 0 or d < xf * 4:
+        run([FFMPEG, "-hide_banner", "-y", "-i", str(bgm), "-ar", "48000", "-ac", "2", "-c:a", "pcm_s16le", str(out)])
+        return out
+    # [末尾xf秒 → 先頭xf秒 を crossfade] + [xf 〜 D-xf] = 長さ約 D-xf の1周。並べると毎回 xf 秒の crossfade になる
+    # （ffmpeg 6 では asplit した同じ流れ同士の acrossfade が空になるため、一度 WAV にしてから3回読み込む）
+    full = out.with_suffix(".full.wav")
+    run([FFMPEG, "-hide_banner", "-y", "-i", str(bgm), "-ar", "48000", "-ac", "2", "-c:a", "pcm_s16le", str(full)])
+    d = media_duration(full)
+    fc = (f"[0:a][1:a]acrossfade=d={xf - 0.05:.4f}:c1=qsin:c2=qsin[x];"
+          f"[x][2:a]concat=n=2:v=0:a=1[o]")
+    tmp = out.with_suffix(".tmp.wav")
+    run([FFMPEG, "-hide_banner", "-y",
+         "-ss", f"{d - xf:.4f}", "-i", str(full),
+         "-t", f"{xf:.4f}", "-i", str(full),
+         "-ss", f"{xf:.4f}", "-t", f"{d - 2 * xf:.4f}", "-i", str(full),
+         "-filter_complex", fc, "-map", "[o]", "-c:a", "pcm_s16le", str(tmp)])
+    full.unlink()
+    tmp.replace(out)
+    return out
+
+
 def mux(concat_list: Path, narration: Path, bgm: Path | None, total: float, out: Path, fmt: str) -> None:
     cmd = [FFMPEG, "-hide_banner", "-y", "-f", "concat", "-safe", "0", "-i", str(concat_list), "-i", str(narration)]
     # ナレーションを目標ラウドネスに合わせる（YouTube は -14LUFS 基準。小さすぎる音は持ち上げてくれない）
@@ -495,7 +569,8 @@ def mux(concat_list: Path, narration: Path, bgm: Path | None, total: float, out:
     gain = 0.0 if lufs is None or lufs < -70 else max(-20.0, min(20.0, NARRATION_LUFS[fmt] - lufs))
     narr = f"[1:a]volume={gain:.2f}dB,aresample=48000,aformat=sample_fmts=fltp:channel_layouts=stereo"
     if bgm:
-        cmd += ["-stream_loop", "-1", "-i", str(bgm)]
+        loop = make_bgm_loop(bgm, PIPELINE_DIR / ".cache")
+        cmd += ["-stream_loop", "-1", "-i", str(loop)]
         fo = max(total - 4, 0)
         fc = (f"{narr},asplit=2[n1][n2];"
               f"[2:a]aresample=48000,aformat=sample_fmts=fltp:channel_layouts=stereo,"
@@ -532,11 +607,10 @@ def bgm_credit(bgm: Path | None) -> str | None:
     txt = bgm.with_suffix(".txt")
     if txt.exists():
         return txt.read_text(encoding="utf-8").strip()
-    credits = PIPELINE_DIR / "bgm" / "credits.json"
-    if credits.exists():
-        c = json.loads(credits.read_text(encoding="utf-8")).get(bgm.name)
-        if c:
-            return c
+    # config.json の bgm_credits（キーはファイル名の先頭: R1_xxx.mp3 → "R1"）
+    for k, v in CONFIG.get("bgm_credits", {}).items():
+        if bgm.name == k or bgm.name.startswith(k + "_") or bgm.stem == k:
+            return v
     return None
 
 
@@ -673,7 +747,11 @@ def main(argv=None) -> int:
     reqs = []
     for i, sc in enumerate(scenes):
         sc.image = img_dir / f"scene{i:03d}.png"
-        reqs.append((sc.template, sc.data, sc.image))
+        if sc.kind == "item" and cfg.get("heading_in") and sc.data.get("heading"):
+            sc.image_base = img_dir / f"scene{i:03d}_base.png"
+            reqs.append((sc.template, sc.data, sc.image, sc.data["heading"], sc.image_base))
+        else:
+            reqs.append((sc.template, sc.data, sc.image))
     th = script.get("thumbnail") or {}
     first_icon = next(((it.get("visual") or {}).get("icon") for it in script["items"]
                        if (it.get("visual") or {}).get("icon")), "coins")
