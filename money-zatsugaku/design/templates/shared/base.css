@@ -1,0 +1,80 @@
+/* 聞くだけでお金持ちになる雑学 — 共通スタイル
+ * 色は runtime.js が tokens から CSS 変数として流し込む（ここにある値は読み込み前の保険）。 */
+@import url("../../assets/fonts/fonts.css");
+
+:root {
+  --bg: #0C1B36; --bg-deep: #050B1A; --bg-glow: #1A2F57;
+  --gold: #CDAA5C; --gold-light: #F1DDA4; --gold-deep: #93733A;
+  --ivory: #F4EDDD; --ivory-muted: #B9B4A6;
+  --line: rgba(205,170,92,0.38); --panel: rgba(255,255,255,0.025);
+  --font-serif: "Noto Serif JP", serif;
+  --font-sans: "Noto Sans JP", sans-serif;
+  --w-heading: 700; --w-display: 900; --w-body: 400; --w-caption: 500;
+  --ls-heading: 0.06em; --ls-label: 0.24em; --ls-body: 0.04em;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { overflow: hidden; }
+body {
+  position: relative;
+  background: var(--bg-deep);
+  color: var(--ivory);
+  font-family: var(--font-sans);
+  font-weight: var(--w-body);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+  font-feature-settings: "palt" 1; /* 和文の字詰め（プロポーショナル） */
+}
+
+/* 背景: 中央上寄りのやわらかい光 + 周辺減光。模様は入れない。 */
+.canvas {
+  position: absolute; inset: 0; overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 34%, var(--bg-glow) 0%, transparent 70%),
+    radial-gradient(ellipse 120% 100% at 50% 40%, var(--bg) 0%, var(--bg-deep) 100%);
+}
+.canvas::after { /* ごく薄い周辺減光 */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: radial-gradient(ellipse 85% 80% at 50% 45%, transparent 55%, rgba(0,0,0,0.35) 100%);
+}
+
+/* 四隅の細いコーナー罫（装飾は最小限） */
+.corner { position: absolute; width: 56px; height: 56px; border-color: var(--line); border-style: solid; border-width: 0; }
+.corner.tl { top: 40px; left: 40px; border-top-width: 1px; border-left-width: 1px; }
+.corner.tr { top: 40px; right: 40px; border-top-width: 1px; border-right-width: 1px; }
+.corner.bl { bottom: 40px; left: 40px; border-bottom-width: 1px; border-left-width: 1px; }
+.corner.br { bottom: 40px; right: 40px; border-bottom-width: 1px; border-right-width: 1px; }
+
+.serif { font-family: var(--font-serif); }
+.gold { color: var(--gold); }
+
+/* 金の線＋ひし形の飾り罫 */
+.ornament { display: flex; align-items: center; justify-content: center; gap: 18px; color: var(--gold); }
+.ornament::before, .ornament::after { content: ""; height: 1px; width: 88px; background: linear-gradient(90deg, transparent, var(--gold)); }
+.ornament::after { background: linear-gradient(90deg, var(--gold), transparent); }
+.ornament i { display: block; width: 9px; height: 9px; transform: rotate(45deg); border: 1px solid var(--gold); }
+
+/* 金のグラデーション文字 */
+.gold-text {
+  background: linear-gradient(176deg, var(--gold-light) 8%, var(--gold) 52%, var(--gold-deep) 100%);
+  -webkit-background-clip: text; background-clip: text;
+  color: transparent; -webkit-text-fill-color: transparent;
+}
+
+/* 字幕エリア（?guides=1 のときだけ表示） */
+.subtitle-guide { display: none; }
+.show-guides .subtitle-guide {
+  display: flex; position: absolute; left: 0; right: 0; bottom: 0;
+  align-items: center; justify-content: center;
+  border-top: 2px dashed rgba(255, 80, 80, 0.7); background: rgba(255, 80, 80, 0.08);
+  color: rgba(255, 120, 120, 0.9); font: 500 28px var(--font-sans); letter-spacing: 0.1em;
+}
+
+/* 睡眠モード: 光と装飾を弱める */
+[data-mode="sleep"] .canvas {
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 34%, var(--bg-glow) 0%, transparent 70%),
+    var(--bg-deep);
+}
+[data-mode="sleep"] .canvas::after { background: radial-gradient(ellipse 85% 80% at 50% 45%, transparent 45%, rgba(0,0,0,0.5) 100%); }
+[data-mode="sleep"] .gold-text { background: none; color: var(--gold); -webkit-text-fill-color: var(--gold); }

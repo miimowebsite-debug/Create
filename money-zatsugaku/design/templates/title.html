@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>title</title>
+<meta name="viewport" content="width=1920, height=1080">
+<!--
+  タイトル画面 1920x1080
+  入力: window.SCENE = {mode:"regular|sleep", title, sub}  （任意: channel）
+        または ?data=<URLエンコードしたJSON>（こちらが優先）
+  任意: ?theme=navy|black|green  ?font=noto|zen  ?guides=1
+  完了: document.body.dataset.ready = "1"
+  画面下部 約18%（195px）は字幕用に空けている。
+-->
+<link rel="stylesheet" href="shared/base.css">
+<style>
+  html, body { width: 1920px; height: 1080px; }
+  .safe { position: absolute; left: 0; right: 0; top: 0; height: 885px;
+          display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px 200px 0; }
+
+  .emblem { width: 92px; height: 92px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold);
+            display: flex; align-items: center; justify-content: center; position: relative; flex: none; }
+  .emblem::before { content: ""; position: absolute; inset: 7px; border-radius: 50%; border: 1px solid var(--line); }
+  .emblem svg { width: 42px; height: 42px; }
+
+  .channel { margin-top: 30px; font-family: var(--font-serif); font-weight: 700; color: var(--gold);
+             font-size: 26px; letter-spacing: var(--ls-label); padding-left: var(--ls-label); white-space: nowrap; flex: none; }
+
+  .title-box { width: 100%; height: 300px; margin-top: 36px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .title { display: block; width: 100%; text-align: center; font-family: var(--font-serif); font-weight: var(--w-heading);
+           color: var(--ivory); line-height: 1.38; letter-spacing: var(--ls-heading); text-wrap: balance; word-break: auto-phrase; }
+
+  .rule { margin-top: 34px; flex: none; }
+  .sub-box { width: 100%; height: 72px; margin-top: 28px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .sub { display: block; max-width: 100%; white-space: nowrap; text-align: center; font-family: var(--font-sans);
+         font-weight: var(--w-caption); color: var(--ivory-muted); letter-spacing: .1em; line-height: 1.4; }
+
+  [data-mode="sleep"] .emblem { opacity: .7; width: 80px; height: 80px; }
+  [data-mode="sleep"] .emblem svg { width: 36px; height: 36px; }
+  [data-mode="sleep"] .channel { opacity: .75; }
+</style>
+</head>
+<body>
+<div class="canvas"><div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div></div>
+<div class="safe">
+  <div class="emblem" id="emblem"></div>
+  <div class="channel" id="channel"></div>
+  <div class="title-box"><h1 class="title" id="title"></h1></div>
+  <div class="ornament rule"><i></i></div>
+  <div class="sub-box"><p class="sub" id="sub"></p></div>
+</div>
+<div class="subtitle-guide" style="height:195px">字幕エリア（下部18%）</div>
+
+<script src="../assets/tokens.js"></script>
+<script src="../assets/icons/lucide-icons.js"></script>
+<script src="shared/runtime.js"></script>
+<script>
+(function () {
+  var SAMPLE = { mode: 'regular', title: 'お金持ちだけが知っている「硬貨」の秘密', sub: '聞くだけで少し賢くなる10の雑学', channel: '聞くだけでお金持ちになる雑学' };
+  var d, env, TY = ((ZD.tokens.title || {}).type) || {};
+
+  function render() {
+    d = ZD.loadData(['SCENE'], SAMPLE);
+    env = ZD.setup(d);
+    document.getElementById('emblem').innerHTML = ZD.icon(d.icon || 'landmark', { stroke: 1.25 });
+    var ch = d.channel == null ? '聞くだけでお金持ちになる雑学' : d.channel;
+    var chEl = document.getElementById('channel');
+    chEl.textContent = ch; chEl.style.display = ch ? '' : 'none';
+    document.getElementById('title').textContent = d.title || '';
+    var sub = document.getElementById('sub');
+    sub.textContent = d.sub || '';
+    document.querySelector('.rule').style.visibility = d.sub ? '' : 'hidden';
+  }
+
+  function layout() {
+    var k = env.sleep ? 0.86 : 1;
+    ZD.fit(document.getElementById('title'), { max: Math.round((TY.title || 100) * k), min: TY.titleMin || 60, maxLines: 2 });
+    ZD.fit(document.getElementById('sub'), { max: Math.round((TY.sub || 44) * k), min: 26, maxLines: 1 });
+  }
+
+  ZD.run(render, layout);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>scene</title>
+<meta name="viewport" content="width=1920, height=1080">
+<!--
+  本編シーン 1920x1080
+  入力: window.SCENE = {mode:"regular|sleep", heading, visual:{type:"icon|number|compare", icon, number, compare:{left,right}, caption}, index:"01", total:"10", channel:"チャンネル名"}
+        または ?data=<URLエンコードしたJSON>（こちらが優先）
+  任意: ?theme=navy|black|green  ?font=noto|zen  ?guides=1（字幕エリア表示）
+  完了: document.body.dataset.ready = "1"
+  画面下部 約18%（195px）は字幕用に空けている。
+-->
+<link rel="stylesheet" href="shared/base.css">
+<style>
+  html, body { width: 1920px; height: 1080px; }
+
+  .safe { position: absolute; left: 0; right: 0; top: 0; height: 885px; } /* 1080 - 195(字幕) */
+
+  .top { position: absolute; top: 72px; left: 128px; right: 128px; height: 60px;
+         display: flex; align-items: center; justify-content: space-between; }
+  .channel { font-family: var(--font-serif); font-weight: 700; color: var(--gold);
+             font-size: 26px; letter-spacing: var(--ls-label); opacity: .9; white-space: nowrap; }
+  .index { font-family: var(--font-serif); color: var(--gold); display: flex; align-items: baseline; gap: 12px; white-space: nowrap; line-height: 1.2; }
+  .index b { font-weight: 700; font-size: 38px; letter-spacing: .04em; }
+  .index span { font-size: 24px; color: var(--ivory-muted); letter-spacing: .12em; }
+
+  .stage { position: absolute; top: 150px; bottom: 30px; left: 160px; right: 160px;
+           display: flex; flex-direction: column; align-items: center; }
+
+  .heading-box { width: 100%; min-height: 132px; display: flex; align-items: center; justify-content: center; flex: none; }
+  .heading { display: block; max-width: 100%; text-align: center; white-space: nowrap;
+             font-family: var(--font-serif); font-weight: var(--w-heading); color: var(--ivory);
+             letter-spacing: var(--ls-heading); line-height: 1.3; text-wrap: balance; word-break: auto-phrase; }
+  .heading.wrap { white-space: normal; line-height: 1.25; }
+
+  .stage > .ornament { margin-top: 14px; flex: none; }
+
+  .visual { flex: 1; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
+  .caption-box { width: 100%; height: 64px; flex: none; display: flex; align-items: center; justify-content: center; }
+  .caption { display: block; max-width: 100%; white-space: nowrap; text-align: center;
+             font-family: var(--font-sans); font-weight: var(--w-caption); color: var(--ivory-muted);
+             letter-spacing: .08em; line-height: 1.4; }
+
+  /* --- icon --- */
+  .ring { position: relative; width: 300px; height: 300px; border-radius: 50%;
+          border: 1.5px solid var(--gold); display: flex; align-items: center; justify-content: center; color: var(--gold); }
+  .ring::before { content: ""; position: absolute; inset: 14px; border-radius: 50%; border: 1px solid var(--line); }
+  .ring::after { content: ""; position: absolute; inset: -60px; border-radius: 50%; z-index: -1;
+                 background: radial-gradient(circle, color-mix(in srgb, var(--gold) 14%, transparent) 0%, transparent 65%); }
+  .ring svg { width: 150px; height: 150px; }
+
+  /* --- number --- */
+  .number-box { width: 100%; height: 100%; max-height: 360px; display: flex; align-items: center; justify-content: center; }
+  .number { display: block; max-width: 100%; white-space: nowrap; text-align: center;
+            font-family: var(--font-serif); font-weight: var(--w-display); line-height: 1.15;
+            letter-spacing: .02em; padding: 0 .05em; filter: drop-shadow(0 6px 24px rgba(0,0,0,.35)); }
+  .number .u { font-size: .42em; font-weight: 700; letter-spacing: .06em; margin: 0 .08em; }
+
+  /* --- compare --- */
+  .compare { display: flex; align-items: center; justify-content: center; gap: 0; width: 100%; }
+  .card { width: 640px; height: 290px; border: 1px solid var(--line); background: var(--panel);
+          display: flex; align-items: center; justify-content: center; padding: 28px 40px; position: relative; }
+  .card .label { display: block; width: 100%; text-align: center; font-family: var(--font-serif);
+                 font-weight: 700; line-height: 1.3; letter-spacing: .06em; text-wrap: balance; word-break: auto-phrase; color: var(--ivory-muted); }
+  .card.right { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 6%, transparent); }
+  .card.right::before { content: ""; position: absolute; inset: 10px; border: 1px solid var(--line); pointer-events: none; }
+  .card.right .label { color: var(--gold); }
+  .vs { width: 160px; flex: none; display: flex; flex-direction: column; align-items: center; gap: 14px; color: var(--gold); }
+  .vs::before, .vs::after { content: ""; width: 1px; height: 72px; background: var(--line); }
+  .vs span { font-family: var(--font-serif); font-weight: 700; font-size: 28px; letter-spacing: .18em; padding-left: .18em; }
+
+  /* --- sleep: 小さく・暗く・低コントラスト --- */
+  [data-mode="sleep"] .top { opacity: .6; }
+  [data-mode="sleep"] .heading { color: var(--ivory); }
+  [data-mode="sleep"] .ring { width: 250px; height: 250px; border-width: 1px; }
+  [data-mode="sleep"] .ring::after { display: none; }
+  [data-mode="sleep"] .ring svg { width: 120px; height: 120px; }
+  [data-mode="sleep"] .number { filter: none; font-weight: 700; }
+  [data-mode="sleep"] .card { width: 560px; height: 250px; }
+  [data-mode="sleep"] .card.right { background: transparent; }
+  [data-mode="sleep"] .ornament { opacity: .7; }
+</style>
+</head>
+<body>
+<div class="canvas"><div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div></div>
+<div class="safe">
+  <header class="top">
+    <div class="channel" id="channel"></div>
+    <div class="index" id="index"></div>
+  </header>
+  <main class="stage">
+    <div class="heading-box"><h1 class="heading" id="heading"></h1></div>
+    <div class="ornament"><i></i></div>
+    <div class="visual" id="visual"></div>
+    <div class="caption-box"><p class="caption" id="caption"></p></div>
+  </main>
+</div>
+<div class="subtitle-guide" style="height:195px">字幕エリア（下部18%）</div>
+
+<script src="../assets/tokens.js"></script>
+<script src="../assets/icons/lucide-icons.js"></script>
+<script src="shared/runtime.js"></script>
+<script>
+(function () {
+  var SAMPLE = {
+    mode: 'regular', heading: '1円玉を作るのにかかる費用は？', index: '01', total: '10',
+    channel: '聞くだけでお金持ちになる雑学',
+    visual: { type: 'number', number: '約3円', caption: '作るほど赤字になる不思議な硬貨' }
+  };
+  var d, env, S = (ZD.tokens.scene || {}), TY = S.type || {};
+
+  // "1億2000万円" -> 数字は大きく、単位（約・円・万…）は小さく
+  function numberHTML(s) {
+    var out = '', re = /([0-9０-９][0-9０-９,，.．]*)|([^0-9０-９]+)/g, m;
+    var hasDigit = /[0-9０-９]/.test(s);
+    while ((m = re.exec(s))) {
+      if (m[1]) out += ZD.esc(m[1]);
+      else out += hasDigit ? '<span class="u">' + ZD.esc(m[2]) + '</span>' : ZD.esc(m[2]);
+    }
+    return out;
+  }
+
+  function render() {
+    d = ZD.loadData(['SCENE'], SAMPLE);
+    env = ZD.setup(d);
+    var v = d.visual || {};
+    var type = v.type || (v.number ? 'number' : (v.compare ? 'compare' : 'icon'));
+    document.body.dataset.type = type;
+
+    document.getElementById('channel').textContent = d.channel || '';
+    var idx = document.getElementById('index');
+    idx.innerHTML = d.index ? '<b>' + ZD.esc(d.index) + '</b>' + (d.total ? '<span>/ ' + ZD.esc(d.total) + '</span>' : '') : '';
+    document.getElementById('heading').textContent = d.heading || '';
+    document.getElementById('caption').textContent = v.caption || '';
+
+    var vis = document.getElementById('visual');
+    if (type === 'number') {
+      vis.innerHTML = '<div class="number-box"><div class="number gold-text" id="number">' + numberHTML(String(v.number || '')) + '</div></div>';
+    } else if (type === 'compare') {
+      var c = v.compare || {};
+      vis.innerHTML = '<div class="compare">' +
+        '<div class="card left"><span class="label">' + ZD.esc(c.left || '') + '</span></div>' +
+        '<div class="vs"><span>VS</span></div>' +
+        '<div class="card right"><span class="label">' + ZD.esc(c.right || '') + '</span></div></div>';
+    } else {
+      vis.innerHTML = '<div class="ring">' + ZD.icon(v.icon, { stroke: S.iconStroke || 1.25 }) + '</div>';
+    }
+  }
+
+  function layout() {
+    var k = env.sleep ? (S.sleepScale || 0.86) : 1;
+    var h = document.getElementById('heading');
+    var hmax = Math.round((TY.heading || 84) * k), hmin = Math.round((TY.headingMin || 56) * k);
+    ZD.fit(h, { max: hmax, min: hmin, maxLines: 1 });
+    if (h.scrollWidth > h.parentElement.clientWidth + 0.5) { // 1行に収まらなければ2行に
+      h.classList.add('wrap');
+      ZD.fit(h, { max: hmax, min: Math.round(hmin * 0.85), maxLines: 2, height: 220 });
+    }
+    ZD.fit(document.getElementById('caption'), { max: Math.round((TY.caption || 40) * k), min: 26, maxLines: 1 });
+
+    var num = document.getElementById('number');
+    if (num) ZD.fit(num, { max: Math.round((TY.number || 230) * k), min: 80, step: 4, maxLines: 1 });
+    // 比較ラベル: まず1行で（少し縮めてでも）収め、無理なら2行。左右は同じ文字サイズにそろえる
+    var labels = [].slice.call(document.querySelectorAll('.card .label'));
+    if (labels.length) {
+      var cmax = Math.round((TY.compare || 66) * k);
+      var sizes = labels.map(function (el) {
+        var inner = el.parentElement.clientWidth - 80; // padding 40px x2
+        el.style.whiteSpace = 'nowrap';
+        var s = ZD.fit(el, { max: cmax, min: Math.round(cmax * 0.78), maxLines: 1, width: inner });
+        if (el.scrollWidth > inner + 0.5) {
+          el.style.whiteSpace = '';
+          s = ZD.fit(el, { max: cmax, min: 34, maxLines: 2, width: inner });
+        }
+        return s;
+      });
+      var common = Math.min.apply(null, sizes);
+      labels.forEach(function (el) { el.style.fontSize = common + 'px'; el.dataset.fitSize = common; });
+    }
+  }
+
+  ZD.run(render, layout);
+})();
+</script>
+</body>
+</html>

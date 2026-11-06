@@ -104,7 +104,7 @@
       var lines = Math.round(el.scrollHeight / lh);
       var bw = opts.width || box.clientWidth;
       var bh = opts.height || box.clientHeight;
-      return el.scrollWidth > bw + 0.5 || (bh && el.scrollHeight > bh + 0.5) || lines > maxLines;
+      return el.scrollWidth > bw + 0.5 || (bh && el.scrollHeight > bh + 2) || lines > maxLines;
     }
     el.style.fontSize = size + 'px';
     while (size > min && overflow()) { size -= step; el.style.fontSize = size + 'px'; }

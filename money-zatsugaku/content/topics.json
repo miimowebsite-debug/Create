@@ -1,0 +1,802 @@
+[
+  {
+    "id": "t001",
+    "category": "お金の歴史",
+    "heading": "世界最古の紙幣は北宋の交子",
+    "one_line": "11世紀の四川で、重い鉄銭の代わりに商人組合が発行した預り証が始まり。のちに政府発行になった。",
+    "confidence": "high",
+    "source_hint": "日本銀行金融研究所 貨幣博物館 / 世界史の教科書"
+  },
+  {
+    "id": "t002",
+    "category": "お金の歴史",
+    "heading": "日本最古の紙幣は山田羽書",
+    "one_line": "1600年頃、伊勢山田の商人(御師)が銀の釣り銭代わりに出した預り証が日本の紙幣の先駆けとされる。",
+    "confidence": "high",
+    "source_hint": "日本銀行 貨幣博物館「お金の歴史」"
+  },
+  {
+    "id": "t003",
+    "category": "お金の歴史",
+    "heading": "和同開珎より古い富本銭",
+    "one_line": "708年の和同開珎が最古とされてきたが、飛鳥池遺跡から7世紀後半の富本銭が出土。流通貨幣だったかは議論がある。",
+    "confidence": "medium",
+    "source_hint": "奈良文化財研究所 / 日本銀行 貨幣博物館"
+  },
+  {
+    "id": "t004",
+    "category": "お金の歴史",
+    "heading": "「円」は1871年に生まれた",
+    "one_line": "明治4年の新貨条例で、両に代わり円・銭・厘の十進法の単位が定められた。",
+    "confidence": "high",
+    "source_hint": "財務省 / 造幣局「貨幣の歴史」"
+  },
+  {
+    "id": "t005",
+    "category": "お金の歴史",
+    "heading": "江戸の三貨制度",
+    "one_line": "金貨は枚数で数える計数貨幣、銀貨は重さで量る秤量貨幣、銭は銅貨。東は金、西は銀が主に使われた。",
+    "confidence": "high",
+    "source_hint": "日本銀行 貨幣博物館"
+  },
+  {
+    "id": "t006",
+    "category": "お金の歴史",
+    "heading": "動かない石のお金",
+    "one_line": "ヤップ島の石貨は大きすぎて動かさず、持ち主が替わったことを皆が覚えておくことで取引した。",
+    "confidence": "high",
+    "source_hint": "Tim Harford解説 / スミソニアン関連資料"
+  },
+  {
+    "id": "t007",
+    "category": "お金の歴史",
+    "heading": "サラリーの語源は塩、は実は不確か",
+    "one_line": "古代ローマ兵が塩で給料を受け取ったという話は、一次史料での裏付けが乏しい俗説。語源が塩に関係するのは確か。",
+    "confidence": "medium",
+    "source_hint": "語源辞典(Online Etymology Dictionary)"
+  },
+  {
+    "id": "t008",
+    "category": "お金の歴史",
+    "heading": "チューリップ・バブルの実像",
+    "one_line": "17世紀オランダの球根熱狂は、経済全体を壊滅させたという通説ほど大規模ではなかったとする研究がある。",
+    "confidence": "medium",
+    "source_hint": "Anne Goldgar『Tulipmania』(2007)"
+  },
+  {
+    "id": "t009",
+    "category": "お金の歴史",
+    "heading": "ドルの語源はボヘミアの銀貨",
+    "one_line": "ヨアヒムスタールで造られた銀貨ターラーが、各国でなまってドルという呼び名になった。",
+    "confidence": "high",
+    "source_hint": "語源辞典 / 各国造幣史"
+  },
+  {
+    "id": "t010",
+    "category": "お金の歴史",
+    "heading": "1971年ニクソン・ショック",
+    "one_line": "アメリカがドルと金の交換を停止し、世界は金に裏付けられない通貨の時代へ移った。",
+    "confidence": "high",
+    "source_hint": "米国連邦準備制度の歴史解説(Federal Reserve History)"
+  },
+  {
+    "id": "t011",
+    "category": "お金の歴史",
+    "heading": "ニュートンも損した南海泡沫事件",
+    "one_line": "1720年の南海会社株の暴落でニュートンが損をした記録はあるが、有名な名言は出典がはっきりしない。",
+    "confidence": "medium",
+    "source_hint": "大英図書館資料 / Odlyzko の研究論文"
+  },
+  {
+    "id": "t012",
+    "category": "お札と硬貨",
+    "heading": "1万円札の寿命は4〜5年",
+    "one_line": "日銀によると平均寿命は一万円券で4〜5年程度、よく使われる五千円券・千円券は1〜2年程度。",
+    "confidence": "high",
+    "source_hint": "日本銀行「お札の寿命はどれくらいですか？」"
+  },
+  {
+    "id": "t013",
+    "category": "お札と硬貨",
+    "heading": "硬貨は20枚までしか強制できない",
+    "one_line": "法律で、硬貨は額面の20倍までを限り法貨として通用すると定められている。",
+    "confidence": "high",
+    "source_hint": "通貨の単位及び貨幣の発行等に関する法律 第7条"
+  },
+  {
+    "id": "t014",
+    "category": "お札と硬貨",
+    "heading": "お札は日銀、硬貨は政府",
+    "one_line": "紙幣は日本銀行が発行する日本銀行券、硬貨は政府が発行し造幣局が製造する。",
+    "confidence": "high",
+    "source_hint": "日本銀行 / 造幣局"
+  },
+  {
+    "id": "t015",
+    "category": "お札と硬貨",
+    "heading": "破れたお札の交換ルール",
+    "one_line": "面積3分の2以上残れば全額、5分の2以上なら半額、それ未満は失効と決まっている。",
+    "confidence": "high",
+    "source_hint": "日本銀行「損傷現金の引換え」"
+  },
+  {
+    "id": "t016",
+    "category": "お札と硬貨",
+    "heading": "2024年の新紙幣",
+    "one_line": "2024年7月3日発行開始。肖像は渋沢栄一、津田梅子、北里柴三郎。約20年ぶりの刷新。",
+    "confidence": "high",
+    "source_hint": "日本銀行 / 財務省"
+  },
+  {
+    "id": "t017",
+    "category": "お札と硬貨",
+    "heading": "回る肖像のホログラムは世界初",
+    "one_line": "新しい一万円券と五千円券の、肖像が回転して見える3Dホログラムは銀行券として世界初の採用。",
+    "confidence": "high",
+    "source_hint": "財務省 広報誌「ファイナンス」2024年8月号"
+  },
+  {
+    "id": "t018",
+    "category": "お札と硬貨",
+    "heading": "二千円札は沖縄サミット記念",
+    "one_line": "2000年の九州・沖縄サミットと千年紀を記念して発行。表は守礼門。今も有効なお札。",
+    "confidence": "high",
+    "source_hint": "日本銀行 / 財務省"
+  },
+  {
+    "id": "t019",
+    "category": "お札と硬貨",
+    "heading": "古いお札も今も使える",
+    "one_line": "聖徳太子の一万円券なども、法令で特別な措置がない限り通用力を失わない。",
+    "confidence": "high",
+    "source_hint": "日本銀行「現在使えるお札は？」"
+  },
+  {
+    "id": "t020",
+    "category": "お札と硬貨",
+    "heading": "お札の原料はみつまたとマニラ麻",
+    "one_line": "日本のお札の紙には、和紙の原料みつまたや、アバカ(マニラ麻)が使われ、丈夫さを支えている。",
+    "confidence": "high",
+    "source_hint": "国立印刷局「お札の特長」"
+  },
+  {
+    "id": "t021",
+    "category": "ビジネスモデル",
+    "heading": "替刃モデルの元祖ジレット説は俗説",
+    "one_line": "ジレットは特許が有効だった時期、本体を安売りしていなかったという研究がある。",
+    "confidence": "high",
+    "source_hint": "Randal Picker, The Razors-and-Blades Myth(s), 2011"
+  },
+  {
+    "id": "t022",
+    "category": "ビジネスモデル",
+    "heading": "コストコは会費で稼ぐ",
+    "one_line": "2024年度の会費収入は約48億ドルで、純利益約74億ドルの大きな部分に相当する。",
+    "confidence": "high",
+    "source_hint": "Costco 2024年度 10-K / 決算発表"
+  },
+  {
+    "id": "t023",
+    "category": "ビジネスモデル",
+    "heading": "プリンターは本体よりインク",
+    "one_line": "本体を手頃にし、消耗品のインクで継続的に収益を得る。替刃モデルの代表例。",
+    "confidence": "high",
+    "source_hint": "各社IR資料 / 経営学の教科書"
+  },
+  {
+    "id": "t024",
+    "category": "ビジネスモデル",
+    "heading": "フリーミアムの仕組み",
+    "one_line": "大多数は無料で使い、一部の有料会員が全体を支える。無料利用者は宣伝役でもある。",
+    "confidence": "high",
+    "source_hint": "Chris Anderson『FREE』"
+  },
+  {
+    "id": "t025",
+    "category": "ビジネスモデル",
+    "heading": "サブスクの原型は新聞と牛乳",
+    "one_line": "定期購読や宅配は昔からある定額・継続課金。今のサブスクはそのデジタル版。",
+    "confidence": "medium",
+    "source_hint": "経営学の教科書 / 業界解説"
+  },
+  {
+    "id": "t026",
+    "category": "ビジネスモデル",
+    "heading": "検索エンジンは広告会社",
+    "one_line": "アルファベットの売上の大半は広告。利用者は無料、広告主がお金を払う二面市場。",
+    "confidence": "high",
+    "source_hint": "Alphabet 年次報告書(10-K)"
+  },
+  {
+    "id": "t027",
+    "category": "ビジネスモデル",
+    "heading": "飛行機の隣の席は値段が違う",
+    "one_line": "航空会社は需要に応じて運賃を細かく変えるイールド・マネジメントで収入を最大化する。",
+    "confidence": "high",
+    "source_hint": "航空経営の教科書 / 業界解説"
+  },
+  {
+    "id": "t028",
+    "category": "ビジネスモデル",
+    "heading": "ホテル料金が日々変わる理由",
+    "one_line": "需要予測で価格を変えるダイナミック・プライシング。空室は翌日に売れない在庫だから。",
+    "confidence": "high",
+    "source_hint": "観光庁資料 / 業界解説"
+  },
+  {
+    "id": "t029",
+    "category": "ビジネスモデル",
+    "heading": "マクドナルドと不動産",
+    "one_line": "創業期の財務責任者ソネボーンが、店舗の土地を押さえて賃料を得る仕組みを作ったとされる。",
+    "confidence": "medium",
+    "source_hint": "マクドナルド社史関連書籍『Grinding It Out』等"
+  },
+  {
+    "id": "t030",
+    "category": "ビジネスモデル",
+    "heading": "コンビニのドミナント戦略",
+    "one_line": "同じ地域に集中出店し、配送効率と知名度を高める。近くに同じ店が並ぶ理由。",
+    "confidence": "high",
+    "source_hint": "セブン&アイ IR資料 / 流通論"
+  },
+  {
+    "id": "t031",
+    "category": "ビジネスモデル",
+    "heading": "100円ショップの品ぞろえ戦略",
+    "one_line": "原価が高い品と低い品を組み合わせ、店全体で利益が出るよう設計している。",
+    "confidence": "medium",
+    "source_hint": "業界解説 / 各社IR"
+  },
+  {
+    "id": "t032",
+    "category": "ビジネスモデル",
+    "heading": "映画館のポップコーンが高い理由",
+    "one_line": "チケット収入は配給側と分け合うため、売店の利益が映画館の大事な収入源になる。",
+    "confidence": "high",
+    "source_hint": "米国の映画興行研究 / 業界解説"
+  },
+  {
+    "id": "t033",
+    "category": "行動経済学",
+    "heading": "損は得の約2倍つらい",
+    "one_line": "トベルスキーとカーネマンの1992年の推定で、損失回避の係数は約2.25。",
+    "confidence": "high",
+    "source_hint": "Tversky & Kahneman (1992) Journal of Risk and Uncertainty"
+  },
+  {
+    "id": "t034",
+    "category": "行動経済学",
+    "heading": "最初の数字に引っ張られる",
+    "one_line": "アンカリング効果。最初に見た数字が、その後の判断の基準になってしまう。",
+    "confidence": "high",
+    "source_hint": "Tversky & Kahneman (1974) Science"
+  },
+  {
+    "id": "t035",
+    "category": "行動経済学",
+    "heading": "おとりの選択肢",
+    "one_line": "誰も選ばない選択肢を置くと、隣の選択肢がお得に見える。デコイ効果。",
+    "confidence": "high",
+    "source_hint": "Huber, Payne & Puto (1982) / Ariely『予想どおりに不合理』"
+  },
+  {
+    "id": "t036",
+    "category": "行動経済学",
+    "heading": "心の中の財布",
+    "one_line": "同じ1万円でも、給料かボーナスかで使い方が変わる。メンタル・アカウンティング。",
+    "confidence": "high",
+    "source_hint": "Richard Thaler (1985, 1999)"
+  },
+  {
+    "id": "t037",
+    "category": "行動経済学",
+    "heading": "もったいないが損を広げる",
+    "one_line": "取り戻せない費用にこだわって判断を誤るサンクコスト効果。",
+    "confidence": "high",
+    "source_hint": "Arkes & Blumer (1985)"
+  },
+  {
+    "id": "t038",
+    "category": "行動経済学",
+    "heading": "持っている物は高く見える",
+    "one_line": "マグカップを持つ人は、買う人より高い値段を付けた。保有効果。",
+    "confidence": "high",
+    "source_hint": "Kahneman, Knetsch & Thaler (1990)"
+  },
+  {
+    "id": "t039",
+    "category": "行動経済学",
+    "heading": "ナッジでノーベル賞",
+    "one_line": "2017年、そっと後押しするナッジを広めたリチャード・セイラーがノーベル経済学賞。",
+    "confidence": "high",
+    "source_hint": "ノーベル財団 2017年経済学賞"
+  },
+  {
+    "id": "t040",
+    "category": "行動経済学",
+    "heading": "今の1万円と1年後の1万円",
+    "one_line": "人は目先の得を過大に評価する。現在バイアス、双曲割引と呼ばれる。",
+    "confidence": "high",
+    "source_hint": "Laibson (1997) / 行動経済学の教科書"
+  },
+  {
+    "id": "t041",
+    "category": "行動経済学",
+    "heading": "マシュマロ実験の再検証",
+    "one_line": "2018年の大規模な再検証では、家庭環境などを考慮すると将来との関連は大きく弱まった。",
+    "confidence": "high",
+    "source_hint": "Watts, Duncan & Quan (2018) Psychological Science"
+  },
+  {
+    "id": "t042",
+    "category": "行動経済学",
+    "heading": "ジャムの実験は再現が難しい",
+    "one_line": "選択肢が多いと買わなくなるという有名な研究は、まとめ分析では効果がはっきりしなかった。",
+    "confidence": "medium",
+    "source_hint": "Scheibehenne et al. (2010) Journal of Consumer Research"
+  },
+  {
+    "id": "t043",
+    "category": "行動経済学",
+    "heading": "初期設定の力",
+    "one_line": "臓器提供の意思表示は、初期設定が同意か不同意かで国ごとの率が大きく変わった。",
+    "confidence": "high",
+    "source_hint": "Johnson & Goldstein (2003) Science"
+  },
+  {
+    "id": "t044",
+    "category": "税と制度",
+    "heading": "消費税は1989年に3%で始まった",
+    "one_line": "平成元年4月1日導入。のちに5%、8%、10%へ。",
+    "confidence": "high",
+    "source_hint": "財務省「消費税の歴史」"
+  },
+  {
+    "id": "t045",
+    "category": "税と制度",
+    "heading": "ふるさと納税が1兆円超え",
+    "one_line": "2008年開始。2023年度の受入額は約1兆1175億円で、初めて1兆円を超えた。",
+    "confidence": "high",
+    "source_hint": "総務省 ふるさと納税に関する現況調査(2024年8月公表)"
+  },
+  {
+    "id": "t046",
+    "category": "税と制度",
+    "heading": "電子契約には印紙がいらない",
+    "one_line": "印紙税は紙の文書にかかる税。電子データの契約書は課税文書の作成に当たらないとされる。",
+    "confidence": "high",
+    "source_hint": "国税庁 質疑応答 / 国会答弁"
+  },
+  {
+    "id": "t047",
+    "category": "税と制度",
+    "heading": "日本の所得税は1887年から",
+    "one_line": "明治20年に所得税が導入された。当初は一部の高所得者だけが対象だった。",
+    "confidence": "high",
+    "source_hint": "国税庁「税の歴史」"
+  },
+  {
+    "id": "t048",
+    "category": "税と制度",
+    "heading": "税金に税金がかかるガソリン",
+    "one_line": "ガソリン税などを含んだ価格に消費税がかかる、いわゆるタックス・オン・タックス。",
+    "confidence": "high",
+    "source_hint": "資源エネルギー庁 / 国会答弁"
+  },
+  {
+    "id": "t049",
+    "category": "税と制度",
+    "heading": "イギリスの窓税",
+    "one_line": "1696年に導入。窓の数で課税したため、窓をふさぐ家が増えた。",
+    "confidence": "high",
+    "source_hint": "英国議会・歴史資料"
+  },
+  {
+    "id": "t050",
+    "category": "税と制度",
+    "heading": "ロシアのひげ税",
+    "one_line": "ピョートル大帝はひげに税をかけ、払った人にはしるしの札を持たせた。",
+    "confidence": "high",
+    "source_hint": "ロシア史の概説書"
+  },
+  {
+    "id": "t051",
+    "category": "税と制度",
+    "heading": "ドイツの犬税",
+    "one_line": "ドイツの多くの自治体には今も犬の飼い主に課す税がある。",
+    "confidence": "high",
+    "source_hint": "ドイツ各自治体の条例"
+  },
+  {
+    "id": "t052",
+    "category": "税と制度",
+    "heading": "宝くじの当せん金は非課税",
+    "one_line": "当せん金付証票法により、宝くじの当せん金には所得税がかからない。",
+    "confidence": "high",
+    "source_hint": "当せん金付証票法 第13条 / 国税庁"
+  },
+  {
+    "id": "t053",
+    "category": "税と制度",
+    "heading": "年末調整という仕組み",
+    "one_line": "会社が1年分の税を精算する年末調整で、多くの会社員は確定申告が不要になる。",
+    "confidence": "medium",
+    "source_hint": "国税庁 / 税制比較の解説"
+  },
+  {
+    "id": "t054",
+    "category": "税と制度",
+    "heading": "預金保険は1000万円まで",
+    "one_line": "銀行が破綻しても、1金融機関ごとに元本1000万円とその利息が保護される。",
+    "confidence": "high",
+    "source_hint": "預金保険機構"
+  },
+  {
+    "id": "t055",
+    "category": "値段の裏側",
+    "heading": "宝くじの還元は5割以下",
+    "one_line": "法律で当せん金は発売総額の5割以下。実際の当せん金の割合は年度により4割台後半。",
+    "confidence": "high",
+    "source_hint": "当せん金付証票法 第5条 / 総務省資料"
+  },
+  {
+    "id": "t056",
+    "category": "値段の裏側",
+    "heading": "980円という値段の理由",
+    "one_line": "端数価格は安く見せるため、とされるが、効果の大きさや由来には諸説ある。",
+    "confidence": "medium",
+    "source_hint": "マーケティング研究のレビュー"
+  },
+  {
+    "id": "t057",
+    "category": "値段の裏側",
+    "heading": "ビッグマック指数",
+    "one_line": "1986年に英エコノミスト誌が始めた、ハンバーガーの値段で通貨の割安・割高を比べる指標。",
+    "confidence": "high",
+    "source_hint": "The Economist / 購買力平価の解説"
+  },
+  {
+    "id": "t058",
+    "category": "値段の裏側",
+    "heading": "目玉商品の役割",
+    "one_line": "原価に近い特売品で来店してもらい、ほかの商品で利益を出すロス・リーダー戦略。",
+    "confidence": "high",
+    "source_hint": "流通論の教科書"
+  },
+  {
+    "id": "t059",
+    "category": "値段の裏側",
+    "heading": "婚約指輪とダイヤの広告",
+    "one_line": "1947年のデビアスの広告コピー「ダイヤモンドは永遠に」が、婚約指輪の習慣を広めた。",
+    "confidence": "high",
+    "source_hint": "デビアス社史 / 広告史"
+  },
+  {
+    "id": "t060",
+    "category": "値段の裏側",
+    "heading": "量が減るステルス値上げ",
+    "one_line": "値段は同じで内容量を減らす。シュリンクフレーションと呼ばれる。",
+    "confidence": "high",
+    "source_hint": "総務省統計局 / 各国統計機関"
+  },
+  {
+    "id": "t061",
+    "category": "値段の裏側",
+    "heading": "送料無料は誰が払う",
+    "one_line": "送料は消えたわけではなく、商品価格や出店者の負担に組み込まれている。",
+    "confidence": "high",
+    "source_hint": "消費者庁 / 物流業界資料"
+  },
+  {
+    "id": "t062",
+    "category": "値段の裏側",
+    "heading": "コンビニの値段が高めな理由",
+    "one_line": "24時間営業や近さという便利さに値段を払っている。定価販売が基本。",
+    "confidence": "medium",
+    "source_hint": "流通論の教科書"
+  },
+  {
+    "id": "t063",
+    "category": "値段の裏側",
+    "heading": "2番目に安いワイン説",
+    "one_line": "レストランで2番目に安いワインは割高という話は、検証では一様にそうとは言えないとされる。",
+    "confidence": "medium",
+    "source_hint": "英国の飲食業データ分析記事"
+  },
+  {
+    "id": "t064",
+    "category": "値段の裏側",
+    "heading": "サブスク解約の手間",
+    "one_line": "解約しにくい設計は、各国で規制の対象になりつつある。",
+    "confidence": "medium",
+    "source_hint": "米国FTC / 消費者庁"
+  },
+  {
+    "id": "t065",
+    "category": "富豪の習慣と考え方",
+    "heading": "バフェットの家は3万1500ドル",
+    "one_line": "1958年に購入した家に住み続け、株主への手紙で家を語った。",
+    "confidence": "high",
+    "source_hint": "Bloomberg 2011年2月28日 / バークシャー株主への手紙"
+  },
+  {
+    "id": "t066",
+    "category": "富豪の習慣と考え方",
+    "heading": "バフェットの読書量",
+    "one_line": "1日の多くを読むことに使うと本人が語っている。具体的なページ数は出典が不確か。",
+    "confidence": "medium",
+    "source_hint": "各種インタビュー"
+  },
+  {
+    "id": "t067",
+    "category": "富豪の習慣と考え方",
+    "heading": "ロックフェラーの帳簿",
+    "one_line": "16歳から付け始めた出納帳「レジャーA」を生涯大切にしたと伝えられる。",
+    "confidence": "high",
+    "source_hint": "Ron Chernow『タイタン』"
+  },
+  {
+    "id": "t068",
+    "category": "富豪の習慣と考え方",
+    "heading": "カーネギーの富の福音",
+    "one_line": "1889年の論文で、富を蓄えたまま死ぬのは恥だと説き、図書館などに寄付した。",
+    "confidence": "high",
+    "source_hint": "Andrew Carnegie『The Gospel of Wealth』"
+  },
+  {
+    "id": "t069",
+    "category": "富豪の習慣と考え方",
+    "heading": "ギビング・プレッジ",
+    "one_line": "2010年にゲイツ夫妻とバフェットが始めた、資産の半分以上を寄付する誓い。",
+    "confidence": "high",
+    "source_hint": "The Giving Pledge 公式"
+  },
+  {
+    "id": "t070",
+    "category": "富豪の習慣と考え方",
+    "heading": "同じ服を着る理由は決断疲れ？",
+    "one_line": "決断疲れの根拠とされた自我消耗の研究は、再現実験で効果が確認されなかった。",
+    "confidence": "medium",
+    "source_hint": "Hagger et al. (2016) 多施設再現研究"
+  },
+  {
+    "id": "t071",
+    "category": "富豪の習慣と考え方",
+    "heading": "お金持ちは長財布、は俗説",
+    "one_line": "長財布とお金持ちの因果を示す調査はない。話としてはおもしろいが根拠は乏しい。",
+    "confidence": "medium",
+    "source_hint": "(俗説の検証ネタ)"
+  },
+  {
+    "id": "t072",
+    "category": "富豪の習慣と考え方",
+    "heading": "年俸1ドルの経営者",
+    "one_line": "スティーブ・ジョブズはアップル復帰後、年俸1ドルを受け取っていた。",
+    "confidence": "high",
+    "source_hint": "Apple 委任状説明書"
+  },
+  {
+    "id": "t073",
+    "category": "富豪の習慣と考え方",
+    "heading": "時は金なり",
+    "one_line": "ベンジャミン・フランクリンが1748年の『若き商人への手紙』で書いた言葉として知られる。",
+    "confidence": "high",
+    "source_hint": "Franklin, Advice to a Young Tradesman (1748)"
+  },
+  {
+    "id": "t074",
+    "category": "富豪の習慣と考え方",
+    "heading": "二宮尊徳の分度と推譲",
+    "one_line": "収入に応じた支出の上限を決め(分度)、余りを将来や他人に回す(推譲)。",
+    "confidence": "high",
+    "source_hint": "報徳博物館"
+  },
+  {
+    "id": "t075",
+    "category": "経済のしくみ",
+    "heading": "日銀の物価目標は2%",
+    "one_line": "2013年に日本銀行が消費者物価の前年比2%を目標として定めた。",
+    "confidence": "high",
+    "source_hint": "日本銀行「物価安定の目標」"
+  },
+  {
+    "id": "t076",
+    "category": "経済のしくみ",
+    "heading": "GDPは三つの面で同じ",
+    "one_line": "生産・分配・支出のどこから測っても理論上同じになる。三面等価の原則。",
+    "confidence": "high",
+    "source_hint": "内閣府 国民経済計算の解説"
+  },
+  {
+    "id": "t077",
+    "category": "経済のしくみ",
+    "heading": "72の法則",
+    "one_line": "72を年利で割ると、複利で元本が2倍になるおおよその年数になる。",
+    "confidence": "high",
+    "source_hint": "野村證券 用語解説 / 数学的近似"
+  },
+  {
+    "id": "t078",
+    "category": "経済のしくみ",
+    "heading": "悪貨は良貨を駆逐する",
+    "one_line": "グレシャムの法則。質の良いお金はしまい込まれ、質の悪いお金が出回る。",
+    "confidence": "high",
+    "source_hint": "経済学の教科書"
+  },
+  {
+    "id": "t079",
+    "category": "経済のしくみ",
+    "heading": "比較優位",
+    "one_line": "リカードが示した、得意なことに専念して交換すると双方が得をするという考え。",
+    "confidence": "high",
+    "source_hint": "Ricardo『経済学および課税の原理』(1817)"
+  },
+  {
+    "id": "t080",
+    "category": "経済のしくみ",
+    "heading": "見えざる手は1回だけ",
+    "one_line": "アダム・スミスの『国富論』で「見えざる手」という言葉が出てくるのは1回だけ。",
+    "confidence": "high",
+    "source_hint": "Adam Smith『国富論』(1776)"
+  },
+  {
+    "id": "t081",
+    "category": "経済のしくみ",
+    "heading": "100兆ドル紙幣",
+    "one_line": "ジンバブエはハイパーインフレで2008年から2009年に100兆ジンバブエ・ドル札を発行した。",
+    "confidence": "high",
+    "source_hint": "ジンバブエ準備銀行 / IMF報告"
+  },
+  {
+    "id": "t082",
+    "category": "経済のしくみ",
+    "heading": "合成の誤謬",
+    "one_line": "一人ひとりの節約は正しくても、全員がすると景気が悪くなることがある。",
+    "confidence": "high",
+    "source_hint": "経済学の教科書"
+  },
+  {
+    "id": "t083",
+    "category": "経済のしくみ",
+    "heading": "産業は農業から工業、サービスへ",
+    "one_line": "経済が発展すると働く人の中心が移るペティ=クラークの法則。",
+    "confidence": "high",
+    "source_hint": "経済学の教科書"
+  },
+  {
+    "id": "t084",
+    "category": "経済のしくみ",
+    "heading": "所得の偏りを測るジニ係数",
+    "one_line": "0なら完全に平等、1なら一人が全部持つ状態を表す指標。",
+    "confidence": "high",
+    "source_hint": "厚生労働省 所得再分配調査"
+  },
+  {
+    "id": "t085",
+    "category": "世界のお金",
+    "heading": "アメリカの1セント硬貨が終了",
+    "one_line": "1枚作るのに約3.69セントかかり、2025年11月に流通用の製造を終えた。",
+    "confidence": "high",
+    "source_hint": "米財務省発表を報じたAP通信など"
+  },
+  {
+    "id": "t086",
+    "category": "世界のお金",
+    "heading": "ユーロ紙幣の建物は架空",
+    "one_line": "ユーロ紙幣の窓や門、橋は特定の国に偏らないよう、実在しない建物として描かれている。",
+    "confidence": "high",
+    "source_hint": "欧州中央銀行(ECB)"
+  },
+  {
+    "id": "t087",
+    "category": "世界のお金",
+    "heading": "ケニアの携帯送金",
+    "one_line": "2007年に始まったエムペサで、銀行口座がなくても携帯電話で送金できるようになった。",
+    "confidence": "high",
+    "source_hint": "Safaricom / 世界銀行資料"
+  },
+  {
+    "id": "t088",
+    "category": "世界のお金",
+    "heading": "現金が減るスウェーデン",
+    "one_line": "スウェーデンでは現金決済の割合が大きく下がり、現金を受け付けない店もある。",
+    "confidence": "high",
+    "source_hint": "スウェーデン中央銀行 Payments Report"
+  },
+  {
+    "id": "t089",
+    "category": "世界のお金",
+    "heading": "パナマはドルを使う",
+    "one_line": "パナマでは自国通貨バルボアと並んで米ドルが法定通貨として使われている。",
+    "confidence": "high",
+    "source_hint": "パナマ政府 / IMF"
+  },
+  {
+    "id": "t090",
+    "category": "世界のお金",
+    "heading": "イギリスは銀行ごとにお札が違う",
+    "one_line": "スコットランドや北アイルランドでは民間銀行も独自のポンド紙幣を発行している。",
+    "confidence": "high",
+    "source_hint": "イングランド銀行"
+  },
+  {
+    "id": "t091",
+    "category": "世界のお金",
+    "heading": "円・元・ウォンは同じ字",
+    "one_line": "円、元、ウォンは、いずれも「圓」という字に由来するとされる。",
+    "confidence": "medium",
+    "source_hint": "各国通貨史の解説"
+  },
+  {
+    "id": "t092",
+    "category": "世界のお金",
+    "heading": "フランスの小切手文化",
+    "one_line": "フランスは欧州の中でも小切手の利用が長く多く残った国として知られる。",
+    "confidence": "medium",
+    "source_hint": "欧州中央銀行 決済統計"
+  },
+  {
+    "id": "t093",
+    "category": "世界のお金",
+    "heading": "スイスフランが安全通貨と呼ばれる理由",
+    "one_line": "政治の安定や対外資産の大きさから、危機のときに買われやすいとされる。",
+    "confidence": "medium",
+    "source_hint": "スイス国立銀行 / IMF"
+  },
+  {
+    "id": "t094",
+    "category": "銀行と金融のしくみ",
+    "heading": "銀行はお金を増やす",
+    "one_line": "預金を貸し出し、それがまた預金になる繰り返しで世の中のお金が増える。信用創造。",
+    "confidence": "high",
+    "source_hint": "日本銀行 / 経済学の教科書"
+  },
+  {
+    "id": "t095",
+    "category": "銀行と金融のしくみ",
+    "heading": "銀行が土日に休む理由",
+    "one_line": "銀行法施行令で、日曜や土曜などが休日と定められている。",
+    "confidence": "high",
+    "source_hint": "銀行法第15条 / 銀行法施行令"
+  },
+  {
+    "id": "t096",
+    "category": "銀行と金融のしくみ",
+    "heading": "カード払いで店が払う手数料",
+    "one_line": "クレジットカードで払うと、店側が売上の数%を手数料として払う。",
+    "confidence": "high",
+    "source_hint": "経済産業省 キャッシュレス関連資料"
+  },
+  {
+    "id": "t097",
+    "category": "銀行と金融のしくみ",
+    "heading": "リボ払いの仕組み",
+    "one_line": "毎月の支払額を一定にする代わりに、残高に手数料がかかり続ける。",
+    "confidence": "medium",
+    "source_hint": "金融庁 / 日本クレジット協会"
+  },
+  {
+    "id": "t098",
+    "category": "銀行と金融のしくみ",
+    "heading": "日銀の出資証券は売買できる",
+    "one_line": "日本銀行は株式会社ではないが、出資証券が東京証券取引所で取引されている。",
+    "confidence": "high",
+    "source_hint": "日本銀行 / 日本取引所グループ"
+  },
+  {
+    "id": "t099",
+    "category": "銀行と金融のしくみ",
+    "heading": "世界初の株式会社",
+    "one_line": "1602年設立のオランダ東インド会社が、最初の株式会社とされることが多い。",
+    "confidence": "high",
+    "source_hint": "経営史の教科書"
+  },
+  {
+    "id": "t100",
+    "category": "銀行と金融のしくみ",
+    "heading": "ATMの硬貨手数料",
+    "one_line": "大量の硬貨の入金に手数料をとる銀行が増えた。硬貨の扱いには手間とコストがかかる。",
+    "confidence": "high",
+    "source_hint": "各銀行の手数料表 / 報道"
+  }
+]

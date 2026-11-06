@@ -1,0 +1,174 @@
+/* generated from design/tokens.json by design/tools/build-tokens.js - do not edit */
+window.ZTOKENS={
+ "$comment": "デザインの値の原本。編集したら `node design/tools/build-tokens.js` で design/assets/tokens.js を再生成する（テンプレートは tokens.js を読む）。色は colors、睡眠モードでの上書きは sleep に書く。",
+ "version": 1,
+ "defaultTheme": "navy",
+ "defaultFont": "noto",
+ "themes": {
+  "navy": {
+   "label": "濃紺×金（ネイビー・ゴールド）",
+   "colors": {
+    "bg": "#0C1B36",
+    "bgDeep": "#050B1A",
+    "bgGlow": "#1A2F57",
+    "gold": "#CDAA5C",
+    "goldLight": "#F1DDA4",
+    "goldDeep": "#93733A",
+    "ivory": "#F4EDDD",
+    "ivoryMuted": "#B9B4A6",
+    "line": "rgba(205,170,92,0.38)",
+    "panel": "rgba(255,255,255,0.025)"
+   },
+   "sleep": {
+    "bg": "#07101F",
+    "bgDeep": "#02060E",
+    "bgGlow": "#0D1A31",
+    "gold": "#8C7647",
+    "goldLight": "#A8925E",
+    "goldDeep": "#6B5A36",
+    "ivory": "#AEA899",
+    "ivoryMuted": "#77756D",
+    "line": "rgba(140,118,71,0.28)",
+    "panel": "rgba(255,255,255,0.012)"
+   }
+  },
+  "black": {
+   "label": "黒×金（ブラック・ゴールド）",
+   "colors": {
+    "bg": "#121212",
+    "bgDeep": "#050505",
+    "bgGlow": "#232019",
+    "gold": "#D4B26A",
+    "goldLight": "#F6E6B4",
+    "goldDeep": "#9A7B3E",
+    "ivory": "#F5F0E4",
+    "ivoryMuted": "#B3AEA3",
+    "line": "rgba(212,178,106,0.36)",
+    "panel": "rgba(255,255,255,0.03)"
+   },
+   "sleep": {
+    "bg": "#0A0A0A",
+    "bgDeep": "#020202",
+    "bgGlow": "#141310",
+    "gold": "#8E7A4E",
+    "goldLight": "#A99363",
+    "goldDeep": "#6A5B3A",
+    "ivory": "#ABA699",
+    "ivoryMuted": "#74716B",
+    "line": "rgba(142,122,78,0.26)",
+    "panel": "rgba(255,255,255,0.012)"
+   }
+  },
+  "green": {
+   "label": "深緑×金（フォレスト・ゴールド）",
+   "colors": {
+    "bg": "#0D2A22",
+    "bgDeep": "#04120D",
+    "bgGlow": "#18402F",
+    "gold": "#CFAE62",
+    "goldLight": "#F0DFAA",
+    "goldDeep": "#957640",
+    "ivory": "#F2EDDF",
+    "ivoryMuted": "#B2B4A7",
+    "line": "rgba(207,174,98,0.36)",
+    "panel": "rgba(255,255,255,0.025)"
+   },
+   "sleep": {
+    "bg": "#081812",
+    "bgDeep": "#020906",
+    "bgGlow": "#0E241B",
+    "gold": "#8B7849",
+    "goldLight": "#A6935F",
+    "goldDeep": "#695B37",
+    "ivory": "#A9A99A",
+    "ivoryMuted": "#72756C",
+    "line": "rgba(139,120,73,0.26)",
+    "panel": "rgba(255,255,255,0.012)"
+   }
+  }
+ },
+ "fonts": {
+  "serif": {
+   "noto": "\"Noto Serif JP\", \"Zen Old Mincho\", serif",
+   "zen": "\"Zen Old Mincho\", \"Noto Serif JP\", serif"
+  },
+  "sans": "\"Noto Sans JP\", sans-serif",
+  "weights": {
+   "heading": 700,
+   "headingSleep": 500,
+   "display": 900,
+   "body": 400,
+   "caption": 500
+  },
+  "files": {
+   "Noto Serif JP": [
+    500,
+    700,
+    900
+   ],
+   "Zen Old Mincho": [
+    700,
+    900
+   ],
+   "Noto Sans JP": [
+    400,
+    500
+   ]
+  }
+ },
+ "scene": {
+  "width": 1920,
+  "height": 1080,
+  "subtitleSafeRatio": 0.18,
+  "subtitleSafePx": 195,
+  "sideMargin": 160,
+  "type": {
+   "channel": 26,
+   "index": 34,
+   "heading": 84,
+   "headingMin": 56,
+   "number": 230,
+   "compare": 66,
+   "caption": 40
+  },
+  "sleepScale": 0.86,
+  "iconSize": 150,
+  "iconRing": 300,
+  "iconStroke": 1.25
+ },
+ "title": {
+  "width": 1920,
+  "height": 1080,
+  "type": {
+   "title": 100,
+   "titleMin": 60,
+   "sub": 44,
+   "channel": 26
+  }
+ },
+ "thumbnail": {
+  "width": 1280,
+  "height": 720,
+  "type": {
+   "main": 168,
+   "mainMin": 80,
+   "sub": 50
+  },
+  "iconSize": 210,
+  "iconRing": 380,
+  "iconStroke": 1.5
+ },
+ "space": {
+  "xs": 8,
+  "s": 16,
+  "m": 32,
+  "l": 56,
+  "xl": 96,
+  "xxl": 160
+ },
+ "letterSpacing": {
+  "heading": "0.06em",
+  "label": "0.24em",
+  "body": "0.04em"
+ }
+};

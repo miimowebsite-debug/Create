@@ -139,9 +139,12 @@ class VoicevoxTTS(BaseTTS):
             names = ", ".join(s.get("name", "?") for s in speakers)
             raise TTSError(f"話者「{name}」が見つかりません。利用可能: {names}")
         styles = cand[0].get("styles", [])
-        st = next((s for s in styles if s.get("name") == style), styles[0] if styles else None)
+        st = (next((s for s in styles if s.get("name") == style), None)
+              or next((s for s in styles if s.get("name") == "ノーマル"), None)
+              or (styles[0] if styles else None))
         if st is None:
             raise TTSError(f"話者「{name}」にスタイルがありません")
+        self.style_used = st.get("name")
         return int(st["id"]), version
 
     def cache_key(self, text: str) -> str:
