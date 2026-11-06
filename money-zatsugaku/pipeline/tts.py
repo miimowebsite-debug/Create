@@ -71,14 +71,14 @@ class DummyTTS(BaseTTS):
     """文字数に比例した長さの小さなトーン音（BGMの音量調整も確認できるように無音ではなく音を出す）。"""
 
     name = "dummy"
-    SEC_PER_CHAR = 0.13  # VOICEVOX 速さ1.0で だいたい 7〜8 文字/秒
+    SEC_PER_CHAR = 0.155  # 青山龍星・速さ1.0 の実測 約0.155秒/文字
 
     def __init__(self, cache_dir: Path, fmt: str, speaker_name: str = "dummy"):
         super().__init__(cache_dir, fmt)
         self.speaker_name = speaker_name
 
     def cache_key(self, text: str) -> str:
-        return json.dumps(["dummy", 2, text, self.params], ensure_ascii=False, sort_keys=True)
+        return json.dumps(["dummy", 3, text, self.params], ensure_ascii=False, sort_keys=True)
 
     def _synthesize(self, text: str) -> bytes:
         chars = len([c for c in text if not c.isspace()])

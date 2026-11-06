@@ -17,8 +17,8 @@ from pathlib import Path
 PIPELINE_DIR = Path(__file__).resolve().parent
 ROOT = PIPELINE_DIR.parent
 
-# 長さの見積もり用（VOICEVOX 青山龍星・速さ1.0 でおよそ 0.13 秒/文字）
-SEC_PER_CHAR = 0.13
+# 長さの見積もり用（VOICEVOX 青山龍星・速さ1.0 で実測 約0.155 秒/文字）
+SEC_PER_CHAR = 0.155
 SLEEP_SPEED = 0.88
 SLEEP_ITEM_OVERHEAD = 1.0 + 3.0 + 1.2 * 2 + 0.5 * 4  # 頭の間 + ネタ間 + 段落間 + 文の間（make_video.py の TIMING と揃える）
 

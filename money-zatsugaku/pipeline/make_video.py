@@ -171,13 +171,13 @@ def build_scenes(script: dict) -> list[Scene]:
 class Templates:
     NAMES = {"scene": (W, H, "SCENE"), "title": (W, H, "SCENE"), "thumbnail": (1280, 720, "THUMB")}
 
-    def __init__(self):
+    def __init__(self, force_fallback: bool = False):
         self.design_dir = ROOT / "design" / "templates"
         self.fallback_dir = PIPELINE_DIR / "fallback_templates"
         self.paths: dict[str, Path] = {}
         for name in self.NAMES:
             p = self.design_dir / f"{name}.html"
-            self.paths[name] = p if p.exists() else self.fallback_dir / f"{name}.html"
+            self.paths[name] = p if p.exists() and not force_fallback else self.fallback_dir / f"{name}.html"
         self._fp: dict[Path, str] = {}
 
     def describe(self) -> str:
@@ -540,10 +540,12 @@ def bgm_credit(bgm: Path | None) -> str | None:
     return None
 
 
-def write_description(script: dict, scenes: list[Scene], total: float, speaker: str, bgm: Path | None,
-                      out: Path) -> None:
-    parts = [(script.get("description") or "").strip()]
-    # チャプター（YouTube の条件: 0:00 から始まり、各10秒以上、3つ以上）
+CHAPTER_LINE = re.compile(r"^\s*(?:(?:\d{1,2}:)?\d{1,2}:\d{2}|\d{2})\s+\S")
+HASHTAG_LINE = re.compile(r"^\s*#\S+(\s+#\S+)*\s*$")
+
+
+def compute_chapters(scenes: list[Scene], total: float) -> list[tuple[float, str]]:
+    """YouTube チャプターの条件: 0:00 から始まり、各10秒以上、3つ以上。"""
     chapters: list[tuple[float, str]] = []
     for sc in scenes:
         if not chapters:
@@ -552,8 +554,34 @@ def write_description(script: dict, scenes: list[Scene], total: float, speaker: 
             chapters.append((sc.start, sc.chapter))
         elif len(chapters) == 1 and sc.kind == "item" and scenes[0].kind == "title":
             chapters[0] = (0.0, sc.chapter)  # オープニングが10秒未満なら、0:00 を最初のネタにする
-    if len(chapters) >= 3:
-        parts.append("■ 目次\n" + "\n".join(f"{fmt_chapter(t)} {c}" for t, c in chapters))
+    return chapters if len(chapters) >= 3 else []
+
+
+def write_description(script: dict, scenes: list[Scene], total: float, speaker: str, bgm: Path | None,
+                      out: Path) -> None:
+    chapters = [f"{fmt_chapter(t)} {c}" for t, c in compute_chapters(scenes, total)]
+    lines = (script.get("description") or "").strip().splitlines()
+    # 台本側の概要欄に「00:00 オープニング / 01 見出し…」のような目次の下書きがあれば、実際の時刻に置き換える
+    body, i, replaced = [], 0, False
+    hashtags = []
+    while i < len(lines):
+        j = i
+        while j < len(lines) and CHAPTER_LINE.match(lines[j]):
+            j += 1
+        if j - i >= 3:
+            if chapters and not replaced:
+                body += chapters
+                replaced = True
+            i = j
+            continue
+        if HASHTAG_LINE.match(lines[i]):
+            hashtags.append(lines[i].strip())
+        else:
+            body.append(lines[i])
+        i += 1
+    parts = ["\n".join(body).strip()]
+    if chapters and not replaced:
+        parts.append("■ 目次\n" + "\n".join(chapters))
     srcs = []
     for it in script["items"]:
         for u in it.get("sources") or []:
@@ -561,15 +589,20 @@ def write_description(script: dict, scenes: list[Scene], total: float, speaker: 
                 srcs.append(u)
     if srcs:
         parts.append("■ 参考・出典\n" + "\n".join(srcs))
-    credit = [f"VOICEVOX:{speaker}"]
+    credit = [] if f"VOICEVOX:{speaker}" in "\n".join(lines) else [f"VOICEVOX:{speaker}"]
     bc = bgm_credit(bgm)
     if bc:
         credit.append(f"BGM: {bc}")
-    parts.append("■ クレジット\n" + "\n".join(credit))
-    tags = script.get("tags") or []
-    if tags:
-        parts.append(" ".join("#" + re.sub(r"\s+", "", t) for t in tags[:3]))
-    out.write_text("\n\n".join(p for p in parts if p) + "\n", encoding="utf-8")
+    if credit:
+        parts.append("■ クレジット\n" + "\n".join(credit))
+    if not hashtags:
+        tags = script.get("tags") or []
+        if tags:
+            hashtags = [" ".join("#" + re.sub(r"\s+", "", t) for t in tags[:3])]
+    parts += hashtags
+    text = "\n\n".join(p for p in parts if p)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    out.write_text(text + "\n", encoding="utf-8")
 
 
 # --------------------------------------------------------------------------- main
@@ -585,6 +618,8 @@ def main(argv=None) -> int:
                     help="話者のスタイル名（既定: regular=ノーマル / sleep=しっとり。無ければノーマル）")
     ap.add_argument("--bgm", default=None, help="BGM の mp3（既定: pipeline/bgm/ から自動。none で無し）")
     ap.add_argument("--out-dir", default=str(ROOT / "output"))
+    ap.add_argument("--fallback-templates", action="store_true",
+                    help="design/templates があっても pipeline/fallback_templates を使う（確認用）")
     ap.add_argument("--max-items", type=int, default=None, help="試し用: 先頭Nネタだけで作る")
     ap.add_argument("--jobs", type=int, default=max(1, min(4, (os.cpu_count() or 2) // 2)),
                     help="映像クリップの並列エンコード数")
@@ -631,7 +666,7 @@ def main(argv=None) -> int:
     log(f"  動画の長さ: {total:.1f} 秒（{total / 60:.1f} 分）")
 
     # 2) 画像
-    tpl = Templates()
+    tpl = Templates(force_fallback=args.fallback_templates)
     log(f"  テンプレート: {tpl.describe()}")
     img_dir = cache_dir / "work" / sid
     img_dir.mkdir(parents=True, exist_ok=True)
