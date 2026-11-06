@@ -27,7 +27,7 @@ PIPELINE_DIR = Path(__file__).resolve().parent
 ROOT = PIPELINE_DIR.parent
 sys.path.insert(0, str(PIPELINE_DIR))
 
-from tts import SAMPLE_RATE, TTSError, make_tts, wav_duration  # noqa: E402
+from tts import DEFAULT_SPEAKER, DEFAULT_STYLE, SAMPLE_RATE, TTSError, make_tts, wav_duration  # noqa: E402
 
 CHANNEL_NAME = "聞くだけでお金持ちになる雑学"
 FFMPEG = shutil.which("ffmpeg") or "/usr/bin/ffmpeg"
@@ -42,7 +42,6 @@ TIMING = {
                   zoom=False, burn_subs=False),
 }
 BGM_GAIN_DB = -25.0
-DEFAULT_STYLE = {"regular": "ノーマル", "sleep": "しっとり"}
 
 SUB_MAX_LINE = 26   # 1行の最大文字数
 SUB_MAX_LINES = 2
@@ -581,7 +580,7 @@ def main(argv=None) -> int:
     ap.add_argument("--tts", choices=["voicevox", "dummy"], default="voicevox",
                     help="voicevox=本番（既定） / dummy=声の代わりにトーン音")
     ap.add_argument("--voicevox-url", default=os.environ.get("VOICEVOX_URL", "http://localhost:50021"))
-    ap.add_argument("--speaker", default="青山龍星", help="VOICEVOX の話者名（/speakers の name）")
+    ap.add_argument("--speaker", default=DEFAULT_SPEAKER, help="VOICEVOX の話者名（/speakers の name）")
     ap.add_argument("--style", default=None,
                     help="話者のスタイル名（既定: regular=ノーマル / sleep=しっとり。無ければノーマル）")
     ap.add_argument("--bgm", default=None, help="BGM の mp3（既定: pipeline/bgm/ から自動。none で無し）")

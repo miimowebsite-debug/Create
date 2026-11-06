@@ -103,7 +103,8 @@ class VoicevoxTTS(BaseTTS):
     name = "voicevox"
 
     def __init__(self, cache_dir: Path, fmt: str, url: str = "http://localhost:50021",
-                 speaker_name: str = "青山龍星", style_name: str = "ノーマル", timeout: float = 120):
+                 speaker_name: str = "青山龍星", style_name: str = "ノーマル", timeout: float = 120,
+                 fallback_id: int | None = None):
         super().__init__(cache_dir, fmt)
         import requests  # 遅延 import（dummy だけなら不要）
 
@@ -112,6 +113,7 @@ class VoicevoxTTS(BaseTTS):
         self.timeout = timeout
         self.speaker_name = speaker_name
         self.style_name = style_name
+        self.fallback_id = fallback_id
         self.speaker_id, self.engine_version = self._find_speaker(speaker_name, style_name)
 
     def _get(self, path: str):
@@ -135,6 +137,13 @@ class VoicevoxTTS(BaseTTS):
         cand = [s for s in speakers if s.get("name") == name]
         if not cand:
             cand = [s for s in speakers if name in s.get("name", "")]
+        if not cand and self.fallback_id is not None:
+            # 名前で見つからないとき（表記ゆれ等）は予備の話者IDを使う
+            for sp in speakers:
+                for st in sp.get("styles", []):
+                    if st.get("id") == self.fallback_id:
+                        self.style_used = f"{sp.get('name')}/{st.get('name')}"
+                        return int(st["id"]), version
         if not cand:
             names = ", ".join(s.get("name", "?") for s in speakers)
             raise TTSError(f"話者「{name}」が見つかりません。利用可能: {names}")
@@ -172,9 +181,16 @@ class VoicevoxTTS(BaseTTS):
         return s.content
 
 
+# 既定の声: 青山龍星。名前とスタイル名で /speakers から探し、IDは予備
+DEFAULT_SPEAKER = "青山龍星"
+DEFAULT_STYLE = {"regular": "ノーマル", "sleep": "しっとり"}
+FALLBACK_ID = {("青山龍星", "ノーマル"): 13, ("青山龍星", "しっとり"): 84}
+
+
 def make_tts(kind: str, cache_dir: Path, fmt: str, url: str, speaker: str, style: str) -> BaseTTS:
     if kind == "dummy":
         return DummyTTS(cache_dir, fmt, speaker)
     if kind == "voicevox":
-        return VoicevoxTTS(cache_dir, fmt, url=url, speaker_name=speaker, style_name=style)
+        return VoicevoxTTS(cache_dir, fmt, url=url, speaker_name=speaker, style_name=style,
+                           fallback_id=FALLBACK_ID.get((speaker, style)))
     raise ValueError(f"unknown tts: {kind}")
