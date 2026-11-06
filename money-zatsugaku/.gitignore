@@ -2,3 +2,5 @@ output/
 pipeline/.cache/
 __pycache__/
 node_modules/
+pipeline/bgm/**/*.mp3
+bgm_preview/
