@@ -44,8 +44,10 @@ cd pipeline && npm install && npx playwright install chromium && cd ..
 
 | format | 話者 | スタイル | 予備ID | 速さ | 抑揚 |
 |---|---|---|---|---|---|
-| regular | 青山龍星 | ノーマル | 13 | 1.0 | 0.85（控えめ） |
+| regular | 青山龍星 | ノーマル | 13 | 1.12 | 0.9（控えめ） |
 | sleep | 青山龍星 | しっとり | 84 | 0.88 | 0.7 |
+
+これらの値・間の長さ・BGMの既定は **`pipeline/config.json` の1か所** にまとめてあります（話速は `voice.regular.speedScale`、文の前後の無音は `prePhonemeLength` / `postPhonemeLength`）。
 
 `--speaker 名前 --style スタイル名` で変更できます。概要欄のクレジットは話者名から自動で `VOICEVOX:青山龍星` と入ります（VOICEVOX・青山龍星の利用規約でクレジット表記が必要です）。
 
@@ -85,17 +87,18 @@ python3 pipeline/make_video.py output/scripts/sleep_ep001-ep005.json
 
 ## BGM
 
-`pipeline/bgm/` に mp3 を置くと自動でループ再生します（無ければBGMなしで作ります）。
+既定の曲は `pipeline/config.json` の `bgm` で決めます（今は regular＝R1「夜明け」、sleep＝S2「光差し込む森」）。
 
-- 音量は約 −25dB。ナレーション中はさらに数dB（約6dB）自動で下がり、話していない間に戻ります
-- `pipeline/bgm/regular/`・`pipeline/bgm/sleep/` を作ると format ごとに使い分けます。複数あるときは台本IDごとに1曲を選びます
-- `--bgm ファイル.mp3` で指定、`--bgm none` でBGMなし
-- 曲名と同じ名前の `.txt`（例: `calm.mp3` → `calm.txt`）にクレジットを書いておくと、概要欄に「BGM: …」として入ります
+- 候補曲は `pipeline/bgm/candidates/`、出典とライセンスは `pipeline/bgm/CREDITS.md`。**mp3 は再配布禁止なので Git に入れていません**。新しい環境では CREDITS.md の URL（OpenTracks／旧 DOVA-SYNDROME）から再ダウンロードして同じファイル名で置いてください
+- 曲は短いので、終わりと頭を 1.5秒のクロスフェードでつないでループします（`bgm.loop_crossfade`）
+- 音量は約 −25dB（`bgm.gain_db`）。ナレーション中はさらに約6dB自動で下がり、話していない間に戻ります
+- `--bgm ファイル.mp3` でその回だけ別の曲、`--bgm none` でBGMなし。config の曲が無ければ `bgm/<format>/*.mp3` → `bgm/*.mp3` の順に探し、どれも無ければBGMなしで作ります
+- 概要欄に「BGM: 曲名 / 作曲者（OpenTracks）」を自動で入れます（`bgm_credits`。キーはファイル名の先頭 `R1` など。OpenTracks ではクレジットは任意）。曲と同じ名前の `.txt` があればそちらを優先します
 
-入手先（どちらも商用・収益化OK。利用規約は各サイトで確認してください）:
+ほかの入手先（どちらも商用・収益化OK。利用規約は各サイトで確認してください）:
 
 - **YouTube オーディオライブラリ**（YouTube Studio → オーディオライブラリ）: 「帰属表示は不要」の曲を選ぶのが楽です
-- **DOVA-SYNDROME**（https://dova-s.jp/）: 落ち着いた「ピアノ」「ヒーリング」「Lo-Fi」の曲が睡眠用に向きます。クレジット表記は任意ですが、書く場合は `.txt` に「曲名 by 作者名 (DOVA-SYNDROME)」
+- **DOVA-SYNDROME / OpenTracks**（https://dova-s.jp/ ・ https://opentracks.com/）: 落ち着いた「ピアノ」「ヒーリング」の曲が睡眠用に向きます
 
 ## 画面テンプレート
 
@@ -106,7 +109,7 @@ python3 pipeline/make_video.py output/scripts/sleep_ep001-ep005.json
 ## 動画の作り
 
 - 1ネタ＝1シーン（冒頭はタイトル画面、最後はエンディング画面）
-- regular: ゆっくりズーム（1.00⇔1.06）＋短いフェード、ネタ間 0.6秒、字幕を焼き込み（下部18%）、30fps
+- regular（テンポ重視）: 話速 1.12、文の間 0.05秒・パートの間 0.2秒・ネタ間 0.25秒。ネタの頭で見出しを約0.3秒で出し（見出しだけ隠した画像を撮って重ね、フェードで消す）、ズームは 1.00⇔1.09、切り替えは0.12秒の短いフェード。字幕は焼き込み（下部18%）、30fps
 - sleep: 静止画＋ゆっくりフェード、ネタ間 3秒、字幕は SRT のみ、24fps、ナレーションは少し小さめ（-20LUFS、regular は -16LUFS に自動調整）
 
 ## キャッシュ
@@ -132,6 +135,7 @@ python3 pipeline/make_video.py SCRIPT.json
 | パス | 役割 |
 |---|---|
 | `make_video.py` | 本体 |
+| `config.json` | 既定値（声・間・演出・BGM・BGMクレジット） |
 | `tts.py` | VOICEVOX クライアント（/speakers → /audio_query → /synthesis）と dummy |
 | `render.js` | テンプレートのスクショ（Playwright） |
 | `make_sleep_compilation.py` | 睡眠用まとめ台本の作成 |
