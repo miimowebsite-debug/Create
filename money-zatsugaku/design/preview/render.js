@@ -95,7 +95,7 @@ for (const s of stress) jobs.push({ theme: 'navy', via: s.global ? 'global' : 'q
       const sizes = [...document.querySelectorAll('[data-fit-size]')].map((e) => `${e.id || e.className}=${e.dataset.fitSize}`).join(' ');
       return { out, sizes };
     });
-    const dir = path.join(OUT, j.theme);
+    const dir = path.join(OUT, j.theme + (process.env.FONT ? '-' + process.env.FONT : ''));
     fs.mkdirSync(dir, { recursive: true });
     const file = path.join(dir, `${j.name}.png`);
     await page.screenshot({ path: file });
