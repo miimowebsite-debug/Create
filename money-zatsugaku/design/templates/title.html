@@ -56,14 +56,14 @@
 <script src="shared/runtime.js"></script>
 <script>
 (function () {
-  var SAMPLE = { mode: 'regular', title: 'お金持ちだけが知っている「硬貨」の秘密', sub: '聞くだけで少し賢くなる10の雑学', channel: '聞くだけでお金持ちになる雑学' };
+  var SAMPLE = { mode: 'regular', title: 'お金持ちだけが知っている「硬貨」の秘密', sub: '聞くだけで少し賢くなる10の雑学', channel: '再生するだけでなぜか財布のお金が増えるチャンネル' };
   var d, env, TY = ((ZD.tokens.title || {}).type) || {};
 
   function render() {
     d = ZD.loadData(['SCENE'], SAMPLE);
     env = ZD.setup(d);
     document.getElementById('emblem').innerHTML = ZD.icon(d.icon || 'landmark', { stroke: 1.25 });
-    var ch = d.channel == null ? '聞くだけでお金持ちになる雑学' : d.channel;
+    var ch = d.channel == null ? '再生するだけでなぜか財布のお金が増えるチャンネル' : d.channel;
     var chEl = document.getElementById('channel');
     chEl.textContent = ch; chEl.style.display = ch ? '' : 'none';
     document.getElementById('title').textContent = d.title || '';

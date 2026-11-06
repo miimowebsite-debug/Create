@@ -29,7 +29,7 @@ sys.path.insert(0, str(PIPELINE_DIR))
 
 from tts import DEFAULT_SPEAKER, DEFAULT_STYLE, SAMPLE_RATE, TTSError, load_config, make_tts, wav_duration  # noqa: E402
 
-CHANNEL_NAME = "聞くだけでお金持ちになる雑学"
+CHANNEL_NAME = "再生するだけでなぜか財布のお金が増えるチャンネル"
 FFMPEG = shutil.which("ffmpeg") or "/usr/bin/ffmpeg"
 FFPROBE = shutil.which("ffprobe") or "/usr/bin/ffprobe"
 W, H = 1920, 1080

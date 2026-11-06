@@ -1,4 +1,4 @@
-/* 聞くだけでお金持ちになる雑学 — テンプレート共通ランタイム
+/* 再生するだけでなぜか財布のお金が増えるチャンネル — テンプレート共通ランタイム
  * 依存: ../assets/tokens.js (window.ZTOKENS), ../assets/icons/lucide-icons.js (window.LUCIDE_ICONS)
  * データの優先順位: ?data=<URLエンコードJSON>  >  window.SCENE / window.THUMB  >  テンプレート内のサンプル
  * テーマ: ?theme=navy|black|green  >  data.theme  >  tokens.defaultTheme

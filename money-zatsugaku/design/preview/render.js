@@ -18,7 +18,7 @@ const tokens = JSON.parse(fs.readFileSync(path.join(DESIGN, 'tokens.json'), 'utf
 const themes = process.argv[2] ? [process.argv[2]] : Object.keys(tokens.themes);
 const extra = (process.env.GUIDES === '1' ? '&guides=1' : '') + (process.env.FONT ? `&font=${process.env.FONT}` : '');
 
-const CH = '聞くだけでお金持ちになる雑学';
+const CH = '再生するだけでなぜか財布のお金が増えるチャンネル';
 // 見出しはすべて上限の18字で試す
 const scenes = {
   icon: { heading: '銀行の大金庫はなぜ地下深くにあるのか', index: '03', total: '10', channel: CH,
@@ -118,7 +118,7 @@ function writeGallery() {
   const html = `<!doctype html><html lang="ja"><meta charset="utf-8"><title>デザイン案プレビュー</title>
 <style>body{background:#111;color:#ddd;font:14px sans-serif;margin:24px}table{border-collapse:collapse}th{text-align:left;padding:8px;color:#cdaa5c;white-space:nowrap}
 td{padding:6px}img{width:420px;display:block;border:1px solid #333}thead th{font-size:16px}figure{display:inline-block;margin:6px}figcaption{color:#999}</style>
-<h1>聞くだけでお金持ちになる雑学 — デザイン案</h1>
+<h1>再生するだけでなぜか財布のお金が増えるチャンネル — デザイン案</h1>
 <table><thead><tr><th></th>${all.map((t) => `<th>${t}<br><small>${tokens.themes[t].label}</small></th>`).join('')}</tr></thead>
 ${rows}</table><h2>崩れチェック（navy）</h2>${stressImgs}</html>`;
   fs.writeFileSync(path.join(__dirname, 'index.html'), html);

@@ -56,7 +56,7 @@ def main(argv=None) -> int:
     first, last = srcs[0][1].get("id", srcs[0][0]), srcs[-1][1].get("id", srcs[-1][0])
     sid = args.id or (f"sleep_{first}" if len(srcs) == 1 else f"sleep_{first}-{last}")
 
-    intro = ("こんばんは。聞くだけでお金持ちになる雑学です。"
+    intro = ("こんばんは。再生するだけでなぜか財布のお金が増えるチャンネルです。"
              "この動画では、お金にまつわる雑学を、ゆっくりとお話ししていきます。"
              "部屋の明かりを落として、目を閉じたまま、楽な姿勢でお聞きください。")
     outro = ("今夜のお話は、ここまでです。最後まで聞いてくださり、ありがとうございました。"
@@ -86,7 +86,7 @@ def main(argv=None) -> int:
     if not items:
         raise SystemExit("ネタが1つもありません")
     n = len(items)
-    title = args.title or f"【睡眠用・聞き流し】聞くだけでお金持ちになる雑学{n}選【約{round(total / 60)}分】"
+    title = args.title or f"【睡眠用・聞き流し】お金の雑学{n}選【約{round(total / 60)}分】"
     desc_lines = [
         "眠る前や作業中に、聞き流すだけでお金の知識が身につく雑学をまとめました。",
         "画面を見なくても内容がわかるように、ゆっくり読み上げています。",

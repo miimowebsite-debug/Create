@@ -2,7 +2,7 @@
   "name": "money-zatsugaku-pipeline",
   "private": true,
   "version": "0.1.0",
-  "description": "聞くだけでお金持ちになる雑学: HTMLテンプレートのスクショ用",
+  "description": "再生するだけでなぜか財布のお金が増えるチャンネル: HTMLテンプレートのスクショ用",
   "scripts": {
     "render": "node render.js"
   },
