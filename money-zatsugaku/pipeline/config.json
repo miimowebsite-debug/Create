@@ -1,0 +1,39 @@
+{
+  "$comment": "パイプラインの既定値はここ1か所で調整する。パスは pipeline/ からの相対。BGM はファイル名の先頭（R1_ など）で指定できる（* はワイルドカード）。",
+
+  "voice": {
+    "speaker": "青山龍星",
+    "regular": {"style": "ノーマル", "fallback_id": 13,
+                "speedScale": 1.12, "intonationScale": 0.9, "pitchScale": 0.0, "volumeScale": 1.0,
+                "prePhonemeLength": 0.05, "postPhonemeLength": 0.05},
+    "sleep":   {"style": "しっとり", "fallback_id": 84,
+                "speedScale": 0.88, "intonationScale": 0.7, "pitchScale": 0.0, "volumeScale": 0.9,
+                "prePhonemeLength": 0.1, "postPhonemeLength": 0.1}
+  },
+
+  "timing": {
+    "$comment": "秒。lead=シーン頭の間, sentence_gap=文の間, part_gap=hook/body/rich_point の間, item_gap=ネタの間, fade=シーン境界のフェード, heading_in=見出しを出す時間（0で演出なし）, heading_delay=見出しを出し始めるまで, zoom=シーン内のズーム量（0で静止）",
+    "regular": {"lead": 0.15, "sentence_gap": 0.05, "part_gap": 0.2, "item_gap": 0.25, "fade": 0.12,
+                "heading_delay": 0.08, "heading_in": 0.3, "zoom": 0.09, "fps": 30, "burn_subs": true,
+                "narration_lufs": -16.0},
+    "sleep":   {"lead": 1.0, "sentence_gap": 0.5, "part_gap": 1.2, "item_gap": 3.0, "fade": 1.2,
+                "heading_delay": 0, "heading_in": 0, "zoom": 0, "fps": 24, "burn_subs": false,
+                "narration_lufs": -20.0}
+  },
+
+  "bgm": {
+    "gain_db": -25.0,
+    "regular": "bgm/candidates/R1_*.mp3",
+    "sleep": "bgm/candidates/S1_*.mp3"
+  },
+
+  "bgm_credits": {
+    "R1": "オープニングオーケストラ「夜明け」/ 今川彰人オーケストラ（OpenTracks）",
+    "R2": "旅路の果て / Greenfield（OpenTracks）",
+    "R3": "Greens / ioni（OpenTracks）",
+    "R4": "感動をあなたに / Kyaai（OpenTracks）",
+    "S1": "Avalon / Merry bad ending（OpenTracks）",
+    "S2": "光差し込む森 / 蒲鉾さちこ（OpenTracks）",
+    "S3": "思い出を手繰り寄せて / alaki paca（OpenTracks）"
+  }
+}

@@ -32,7 +32,27 @@ const TIMEOUT_MS = 20000;
         continue;
       }
       fs.mkdirSync(path.dirname(job.out), { recursive: true });
-      await page.screenshot({ path: job.out, clip: { x: 0, y: 0, width: job.width, height: job.height } });
+      const clip = { x: 0, y: 0, width: job.width, height: job.height };
+      await page.screenshot({ path: job.out, clip });
+      // 見出しを素早く出す演出用: 見出しの文字だけ隠した版も撮る（レイアウトは変えない）
+      if (job.hideText && job.outHidden) {
+        const found = await page.evaluate((text) => {
+          const want = text.replace(/\s+/g, "");
+          let best = null;
+          for (const el of document.body.querySelectorAll("*")) {
+            if (el.textContent.replace(/\s+/g, "") === want) best = el; // 後ろほど内側の要素
+          }
+          if (!best) return false;
+          best.style.visibility = "hidden";
+          return true;
+        }, job.hideText);
+        if (found) {
+          await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+          await page.screenshot({ path: job.outHidden, clip });
+        } else {
+          fs.writeFileSync(job.outHidden + ".none", "");
+        }
+      }
       await page.close();
     }
   } finally {

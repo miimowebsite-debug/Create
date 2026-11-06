@@ -15,11 +15,17 @@ from pathlib import Path
 
 SAMPLE_RATE = 24000
 
-# 抑揚は控えめ（intonationScale < 1.0）
-VOICE_PARAMS = {
-    "regular": {"speedScale": 1.0, "intonationScale": 0.85, "pitchScale": 0.0, "volumeScale": 1.0},
-    "sleep": {"speedScale": 0.88, "intonationScale": 0.7, "pitchScale": 0.0, "volumeScale": 0.9},
-}
+CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
+
+
+def load_config() -> dict:
+    return json.loads(CONFIG_PATH.read_text(encoding="utf-8"))
+
+
+_VOICE = load_config()["voice"]
+SYNTH_KEYS = ("speedScale", "intonationScale", "pitchScale", "volumeScale", "prePhonemeLength", "postPhonemeLength")
+# 話速・抑揚・前後の無音は config.json の voice で調整（抑揚は控えめ = intonationScale < 1.0）
+VOICE_PARAMS = {fmt: {k: _VOICE[fmt][k] for k in SYNTH_KEYS} for fmt in ("regular", "sleep")}
 
 
 class TTSError(RuntimeError):
@@ -82,7 +88,8 @@ class DummyTTS(BaseTTS):
 
     def _synthesize(self, text: str) -> bytes:
         chars = len([c for c in text if not c.isspace()])
-        dur = max(0.5, chars * self.SEC_PER_CHAR / self.params["speedScale"]) + 0.2
+        dur = (max(0.5, chars * self.SEC_PER_CHAR / self.params["speedScale"])
+               + self.params["prePhonemeLength"] + self.params["postPhonemeLength"])
         n = int(dur * SAMPLE_RATE)
         freq = 220.0 + (int(hashlib.md5(text.encode()).hexdigest()[:2], 16) % 8) * 20
         amp = 0.12 * 32767
@@ -170,8 +177,6 @@ class VoicevoxTTS(BaseTTS):
             query.update(self.params)
             query["outputSamplingRate"] = SAMPLE_RATE
             query["outputStereo"] = False
-            query["prePhonemeLength"] = 0.1
-            query["postPhonemeLength"] = 0.1
             s = rq.post(f"{self.url}/synthesis", params={"speaker": self.speaker_id},
                         data=json.dumps(query), headers={"Content-Type": "application/json"},
                         timeout=self.timeout)
@@ -182,9 +187,9 @@ class VoicevoxTTS(BaseTTS):
 
 
 # 既定の声: 青山龍星。名前とスタイル名で /speakers から探し、IDは予備
-DEFAULT_SPEAKER = "青山龍星"
-DEFAULT_STYLE = {"regular": "ノーマル", "sleep": "しっとり"}
-FALLBACK_ID = {("青山龍星", "ノーマル"): 13, ("青山龍星", "しっとり"): 84}
+DEFAULT_SPEAKER = _VOICE["speaker"]
+DEFAULT_STYLE = {fmt: _VOICE[fmt]["style"] for fmt in ("regular", "sleep")}
+FALLBACK_ID = {(DEFAULT_SPEAKER, _VOICE[fmt]["style"]): _VOICE[fmt].get("fallback_id") for fmt in ("regular", "sleep")}
 
 
 def make_tts(kind: str, cache_dir: Path, fmt: str, url: str, speaker: str, style: str) -> BaseTTS:
