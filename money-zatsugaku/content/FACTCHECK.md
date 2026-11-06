@@ -1,0 +1,70 @@
+# FACTCHECK — ep001 / ep001_sleep
+
+- 確認日: 2026-11-06（すべて同日に WebSearch で確認）
+- 確認方法: WebSearch の検索結果・抜粋で数字と出典を照合。
+  - 注意: この作業環境では WebFetch が boj.or.jp / berkshirehathaway.com に接続できなかった（ネットワーク許可外）。
+    日銀ページの記載内容は検索結果の引用で確認した。公開前に人の目で各URLを開いて最終確認すること。
+
+## ep001（通常回）の数字と出典
+
+| # | 見出し | 台本で使った数字・主張 | 出典 | 判定 |
+|---|---|---|---|---|
+| 01 | 1万円札の寿命 | 一万円券 4〜5年程度、五千円券・千円券 1〜2年程度 | 日本銀行「お札の寿命はどれくらいですか？」 https://www.boj.or.jp/about/education/oshiete/money/c10.htm | 確認済（公式） |
+| 02 | 硬貨は20枚まで | 貨幣は額面価格の20倍までを限り法貨として通用（第7条） | 通貨の単位及び貨幣の発行等に関する法律 https://hourei.net/law/362AC0000000042 / 衆議院 制定時法律 https://www.shugiin.go.jp/internet/itdb_housei.nsf/html/houritsu/10819870601042.htm | 確認済（法令） |
+| 03 | 世界最古の紙幣 | 11世紀 北宋・四川、商人組合の預り証が起源、のち政府発行 | 世界史用語解説 https://y-history.net/appendix/wh0303-066.html | 確認済。政府発行の開始年は資料で1023年/1024年と揺れるため、台本では年を言っていない |
+| 04 | 損失回避 | 1992年の論文で損失回避係数 約2.25 | Tversky & Kahneman (1992) JRU 5:297-323 https://psych.fullerton.edu/mbirnbaum/psych466/articles/Tversky_Kahneman_JRU_92.pdf / https://ideas.repec.org/a/kap/jrisku/v5y1992i4p297-323.html | 確認済（学術） |
+| 05 | 宝くじの還元率 | 当せん金は発売総額の5割以下（当せん金付証票法 第5条）。実際は4割台後半 | 総務省資料 https://www.soumu.go.jp/main_content/000588130.pdf / みずほ銀行 宝くじの仕組み https://www.mizuhobank.co.jp/takarakuji/guide/structure/index.html | 確認済。「約46%」という単一の数字は年度で46.5〜46.9%と揺れるため使わず「4割台後半」とした |
+| 06 | 替刃モデルは俗説 | ジレットは特許有効期間（1904〜1921年）に本体安売りをしていなかった | Picker, The Razors-and-Blades Myth(s), 78 U. Chi. L. Rev. 225 (2011) https://lawreview.uchicago.edu/sites/default/files/78-1-Razors-and-Blades%20Myth%28s%29-Picker.pdf | 確認済（学術） |
+| 07 | コストコの会費 | 2024年度 会費収入 約48億ドル（4,828百万ドル）、純利益 約74億ドル（7,367百万ドル）、米加の更新率 92.9% | Costco 10-K FY2024 https://www.sec.gov/Archives/edgar/data/909832/000090983224000049/cost-20240901.htm / 決算発表 https://investor.costco.com/news/news-details/2024/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2024-Operating-Results/default.aspx | 確認済（一次資料）。台本は「92パーセントを超えて」と表現 |
+| 08 | ふるさと納税 | 2023年度 受入額 約1兆1,175億円、前年度比 約1.2倍、初の1兆円超え、制度開始2008年 | 総務大臣会見 2024年8月2日 https://www.soumu.go.jp/menu_news/kaiken/01koho01_02001367.html / 総務省 ふるさと納税 https://www.soumu.go.jp/main_sosiki/jichi_zeisei/czaisei/czaisei_seido/furusato/archive/other_archives.html | 確認済（公式）。2024年度以降の数字は今回未確認のため使っていない |
+| 09 | 72の法則 | 72÷年利＝2倍になるおおよその年数（例: 3%→24年、10年→7.2%） | 野村證券 https://www.nomura.co.jp/fin-wing/column/rule-of-72/ | 確認済（数学的近似。台本で「近似」と明示） |
+| 10 | バフェットの家 | 1958年に3万1,500ドルで購入。株主への手紙で家族の思い出に言及、「3番目に良い投資」 | Bloomberg 2011-02-28 https://www.bloomberg.com/news/articles/2011-02-28/buffett-says-buying-his-home-for-31-500-was-third-best-investment-he-made / Fortune 2023-08-30 https://fortune.com/2023/08/30/warren-buffett-93-birthday-bought-house-omaha-nebraska-31500-best-investment | 確認済（報道）。一次資料のバークシャー2010年度株主書簡は環境から開けず未照合。家の広さ・築年は資料で食い違うため使っていない |
+
+## ep001_sleep（睡眠用）で使った主な数字
+
+すべて 2026-11-06 に検索で確認。出典URLは各 item の sources に記載。
+
+| 項目 | 数字 | 確認した出典 |
+|---|---|---|
+| 山田羽書 | 1600年頃、明治初めまで流通 | 日本銀行 https://www.boj.or.jp/paym/outline/kg21.htm |
+| 円の誕生 | 1871年（明治4年）新貨条例、1円=100銭=1000厘 | 日本銀行 年表 / コトバンク |
+| ニクソン・ショック | 1971年8月15日 | Federal Reserve History |
+| 損傷券の引換え | 3分の2以上で全額、5分の2以上で半額 | 日本銀行 https://www.boj.or.jp/about/services/bn/hikikae.htm |
+| 新紙幣 | 2024年7月3日、約20年ぶり | 日本銀行 |
+| 3Dホログラム | 銀行券として世界初 | 財務省「ファイナンス」2024年8月号 |
+| ドルの語源 | ヨアヒムスタールの銀貨（1519年鋳造） | Online Etymology Dictionary |
+| アンカリング | 1974年 Science | Tversky & Kahneman (1974) |
+| 保有効果 | 1990年 マグカップ実験 | Kahneman, Knetsch & Thaler (1990) JPE |
+| ナッジ | 2017年 セイラーにノーベル経済学賞 | スウェーデン国立銀行 発表 |
+| マシュマロ再検証 | 2018年、約900人（論文は918人） | Watts, Duncan & Quan (2018) |
+| デフォルト効果 | 2003年 臓器提供の研究 | Johnson & Goldstein (2003) Science |
+| 窓税 | 1696年導入、1766年に基準10枚→7枚、1851年廃止 | Wikipedia "Window tax"（複数資料と一致） |
+| ひげ税 | 17世紀末（1698年）、エカテリーナ2世の時代に廃止 | Smithsonian / 大英博物館 収蔵品 |
+| 預金保険 | 元本1000万円とその利息、決済用預金は全額 | 金融庁 |
+| ビッグマック指数 | 1986年 | Wikipedia（エコノミスト誌の記述と一致） |
+| ダイヤは永遠に | 1947年、コピーライターはフランシス・ゲレッティ | WWNO / WARC |
+| 富の福音 | 1889年（同趣旨の発言は1887年にも） | carnegie.org / Barry Popik |
+| 時は金なり | 1748年『若き商人への手紙』（初出がフランクリンかは疑義あり、と台本で明示） | Founders Online / Quote Investigator |
+| 1セント硬貨 | 1枚 約3.69セント、2025年11月に流通用製造終了 | 米財務省発表の報道（TheGrio, KSL） |
+| ユーロ紙幣 | 窓・門・橋は実在しない | ArchDaily / 欧州中央銀行の説明 |
+| オランダ東インド会社 | 1602年 | Britannica |
+
+## 怪しいので落とした／表現を変えたネタ
+
+| ネタ | 理由 | 対応 |
+|---|---|---|
+| 1万円札の製造コストは約20円 | 国立印刷局・財務省の公式な単価公表が見つからない | 不使用 |
+| 宝くじの還元率「約46%」 | 年度で数字が変わり、2023年度の当せん金割合を一次資料で確定できず | 「5割以下（法律）・4割台後半」に変更 |
+| 古代ローマ兵は塩で給料をもらった（サラリーの語源） | 一次史料の裏付けが乏しい | topics には「実は不確か」の切り口で収録、台本には不使用 |
+| ニュートン「天体の動きは計算できても人の狂気は計算できない」 | 名言の出典が確認できない | 「実は出典不明」の切り口で topics のみ |
+| バフェットは1日500ページ読む | 具体的な数字の出典が不確か | topics に medium で収録、数字は使わない |
+| お金持ちは長財布 | 因果を示す調査がない | 俗説として topics のみ |
+| 決断疲れのため同じ服を着る | 自我消耗の多施設再現研究で効果が確認されず | 俗説の切り口で topics のみ |
+| ジャムの実験（選択肢が多いと買わない） | メタ分析で効果がはっきりしない | 俗説の切り口で topics のみ |
+| レストランで2番目に安いワインは割高 | 検証で一様に言えない | topics のみ |
+| チューリップ・バブルで経済崩壊 | 通説ほど大規模でなかったという研究あり | topics に「実像」として収録 |
+| ジレットが替刃モデルの元祖 | Picker の研究で否定的 | ep001 で「実は俗説」として使用 |
+| マシュマロ実験で将来が決まる | 2018年の再検証で関連が大きく弱まった（その後も議論あり） | 睡眠回で「その後の研究」として使用 |
+| 窓税で窓がふさがれた跡が今も残る | 一部はもとから飾りの窓（ブラインドウィンドウ）で、すべてが窓税由来ではない | 睡眠回で注意書きを入れた表現に変更 |
+| 交子の政府発行は1023年 | 資料で1023年と1024年に分かれる | 年を言わない |
+| バフェットの家の広さ・築年 | 資料により大きく食い違う | 不使用 |
