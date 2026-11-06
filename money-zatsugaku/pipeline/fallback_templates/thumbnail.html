@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><title>thumbnail (fallback)</title>
+<style>
+  html,body { margin:0; width:1280px; height:720px; overflow:hidden; }
+  body { background:linear-gradient(135deg,#0f1b2d,#1d3a6b); color:#fff;
+         font-family:"Noto Sans CJK JP","IPAexGothic","IPAGothic",sans-serif; }
+  .icon { position:absolute; right:60px; top:50%; transform:translateY(-50%); opacity:.9; }
+  .txt { position:absolute; left:70px; top:0; bottom:0; width:820px; display:flex; flex-direction:column; justify-content:center; gap:28px; }
+  .main { font-size:120px; font-weight:700; line-height:1.15; color:#ffd84a;
+          text-shadow:0 0 0 #000, 6px 6px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000; }
+  .sub { font-size:52px; font-weight:700; background:#c8102e; padding:10px 24px; align-self:flex-start; }
+</style></head>
+<body><div class="txt"><div class="main" id="m"></div><div class="sub" id="s"></div></div><div class="icon" id="i"></div>
+<script src="common.js"></script>
+<script>
+  const d = readData("THUMB");
+  document.getElementById("m").textContent = d.main || "";
+  const s = document.getElementById("s"); if (d.sub) s.textContent = d.sub; else s.remove();
+  document.getElementById("i").innerHTML = iconSvg(d.icon, 340, "#ffd84a");
+  markReady();
+</script></body></html>

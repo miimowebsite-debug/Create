@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><title>title (fallback)</title>
+<style>
+  :root { --bg:#0f1b2d; --bg2:#16294a; --gold:#e8c35a; --text:#f4f1e8; --sub:#a9b6cc; }
+  body.sleep { --bg:#070b14; --bg2:#0d1526; --gold:#b49a55; --text:#c9c6bd; --sub:#6f7b8f; }
+  html,body { margin:0; width:1920px; height:1080px; overflow:hidden; }
+  body { background: radial-gradient(ellipse at 50% 40%, var(--bg2), var(--bg) 70%); color:var(--text);
+         font-family:"Noto Sans CJK JP","IPAexGothic","IPAGothic",sans-serif; }
+  .wrap { position:absolute; top:0; left:140px; right:140px; height:886px; display:flex; flex-direction:column;
+          align-items:center; justify-content:center; gap:40px; text-align:center; }
+  .line { width:240px; height:6px; background:var(--gold); border-radius:3px; }
+  h1 { margin:0; font-size:92px; line-height:1.25; font-weight:700; }
+  .sub { font-size:48px; color:var(--sub); }
+</style></head>
+<body><div class="wrap"><div class="line"></div><h1 id="t"></h1><div class="sub" id="s"></div><div class="line"></div></div>
+<script src="common.js"></script>
+<script>
+  const d = readData("SCENE");
+  if (d.mode === "sleep") document.body.classList.add("sleep");
+  document.getElementById("t").textContent = d.title || "";
+  document.getElementById("s").textContent = d.sub || "";
+  markReady();
+</script></body></html>
