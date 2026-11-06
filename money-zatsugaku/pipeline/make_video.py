@@ -288,7 +288,8 @@ def wrap_sub(text: str, max_line: int = SUB_MAX_LINE) -> list[str]:
         k = math.ceil(len(rest) / max_line)
         target = math.ceil(len(rest) / k)
         best, best_score = target, None
-        for i in range(max(2, target - 8), min(len(rest) - 1, max_line) + 1):
+        lo = max(2, target - 8, len(rest) - (k - 1) * max_line)  # 残りが k-1 行に収まる位置より前では切らない
+        for i in range(lo, min(len(rest) - 1, max_line) + 1):
             prev, nxt = rest[i - 1], rest[i]
             score = abs(i - target)
             if prev in "、。，！？」）』…":
@@ -312,7 +313,7 @@ def wrap_sub(text: str, max_line: int = SUB_MAX_LINE) -> list[str]:
 
 def sub_chunks(text: str) -> list[str]:
     """長い文を字幕何枚かに分ける（1枚は最大2行）。"""
-    limit = SUB_MAX_LINE * SUB_MAX_LINES
+    limit = SUB_MAX_LINE * SUB_MAX_LINES - 8  # 少し余裕を持たせ、読点で切れるようにする
     if len(text) <= limit:
         return [text]
     pieces = re.split(r"(?<=[、，])", text)
